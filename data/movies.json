@@ -3,7 +3,7 @@
 		"name": "Riddick",
 		"description": "Left for dead on a sun-scorched planet, Riddick finds himself up against an alien race of predators. Activating an emergency beacon alerts two ships: one carrying a new breed of mercenary, the other captained by a man from Riddick's past.",
 		"duration": 119,
-		"ratings": 6.8,
+		"rating": 6.8,
 		"totalRating": 329,
 		"releaseYear": 2013,
 		"genres": [
@@ -28,7 +28,7 @@
 		"directors": [
 			"Rawson Marshall Thurber"
 		],
-		"ratings": 7.2,
+		"rating": 7.2,
 		"totalRating": 230,
 		"genres": [
 			"Comedy",
@@ -50,7 +50,7 @@
 		"directors": [
 			"Neil Burger"
 		],
-		"ratings": 6.4,
+		"rating": 6.4,
 		"totalRating": 164,
 		"genres": [
 			"Action",
@@ -74,7 +74,7 @@
 		"directors": [
 			"Neill Blomkamp"
 		],
-		"ratings": 7,
+		"rating": 7,
 		"totalRating": 436,
 		"genres": [
 			"Action",
@@ -98,7 +98,7 @@
 		"directors": [
 			"Jose Padilha"
 		],
-		"ratings": 7.7,
+		"rating": 7.7,
 		"totalRating": 310,
 		"genres": [
 			"Action",
@@ -123,7 +123,7 @@
 			"Anthony Russo",
 			"Joe Russo"
 		],
-		"ratings": 7.9,
+		"rating": 7.9,
 		"totalRating": 239,
 		"genres": [
 			"Action",
@@ -146,7 +146,7 @@
 		"directors": [
 			"Steven Soderbergh"
 		],
-		"ratings": 7,
+		"rating": 7,
 		"totalRating": 325,
 		"genres": [
 			"Biography",
@@ -169,7 +169,7 @@
 		"directors": [
 			"Christopher Nolan"
 		],
-		"ratings": 8.6,
+		"rating": 8.6,
 		"totalRating": 530,
 		"genres": [
 			"Action",
