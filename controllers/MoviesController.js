@@ -1,11 +1,11 @@
 const Movie = require("./../models/Movie")
 
 async function getAllMovies(req, res) {
-    res.send("getAllMovies")
+    res.send("getAllMovies");
 }
 
 async function createMovie(req, res) {
-    res.send("createMovie")
+    res.send("createMovie");
 }
 
 function getSingleMovie(req, res) {
