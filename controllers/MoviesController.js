@@ -2,7 +2,43 @@ const Movie = require("./../models/Movie")
 
 async function getAllMovies(req, res) {
     try {
-        let movies = await Movie.find();
+        let queryObj,
+            queryStr = JSON.stringify(req.query);
+
+        console.log(`req.query => `);
+        console.log(req.query);
+
+        // filtering logic
+        if (queryStr.includes("$")) {
+            queryObj = req.query;
+        }
+        else {
+            queryStr = queryStr.replace(/(gte|gt|lte|lt)/, match => `$${match}`);
+            queryObj = { ...JSON.parse(queryStr) };
+            ["sort", "page", "limit"].forEach((ele) => {
+                if (queryObj[ele]) {
+                    delete queryObj[ele];
+                }
+            });
+        }
+
+        console.log(`queryObj => `);
+        console.log(queryObj);
+        let query = Movie.find(queryObj);
+
+        // sort logic
+        if (req.query.sort) {
+            req.query.sort = req.query.sort.split(",").join(" ");
+            query = query.sort(req.query.sort);
+        }
+        else {
+            query = query.sort("createdAt");
+        }
+
+        console.log(`req.query => `);
+        console.log(req.query);
+
+        let movies = await query;
         res.status(200).json({
             status: "succsess",
             length: movies.length,

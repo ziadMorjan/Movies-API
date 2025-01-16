@@ -4,11 +4,11 @@ const app = require("./app");
 const conectToDb = require("./config/conectToDb");
 
 // start the server
-let port = process.env.PORT || 6000;
+let port = process.env.PORT || 8000;
 let hostName = process.env.HOST_NAME || "localhost";
 
 app.listen(port, hostName, () => {
-    console.log("Server started");
+    console.log(`Server started on http://${hostName}:${port}`);
 });
 
 // connect to db
