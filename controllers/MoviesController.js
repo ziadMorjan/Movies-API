@@ -6,13 +6,13 @@ async function getAllMovies(req, res) {
         let qm = new QueryManipulater(Movie, req)
             .filter()
             .sort()
-            .limitFileds()
+            .limitFields()
             .paginate();
 
         let movies = await qm.query;
 
         res.status(200).json({
-            status: "succsess",
+            status: "success",
             length: movies.length,
             data: {
                 movies

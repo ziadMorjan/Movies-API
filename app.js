@@ -4,7 +4,7 @@ const MoviesRoutes = require("./routes/MoviesRoutes");
 
 let app = express();
 
-// midlwares
+// middlewares
 app.use(express.json()); // to reach req.body
 app.use(morgan("dev"));
 

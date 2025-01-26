@@ -9,4 +9,4 @@ function connect(conStr) {
         });
 }
 
-module.exports = connect;
+module.exports = { connect };

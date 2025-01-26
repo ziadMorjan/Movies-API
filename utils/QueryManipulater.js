@@ -35,7 +35,7 @@ class QueryManipulater {
         return this;
     }
 
-    limitFileds() {
+    limitFields() {
         if (this.req.query.fields) {
             let fields = this.req.query.fields.split(",").join(" ");
             this.query = this.query.select(fields);
