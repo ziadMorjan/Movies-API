@@ -1,6 +1,6 @@
 const mongoes = require("mongoose");
 
-const movieSchema = new mongoes.Schema({
+let movieSchema = new mongoes.Schema({
     name: {
         type: String,
         required: [true, "name is required filed"],
