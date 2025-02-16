@@ -101,10 +101,80 @@ async function deleteMovie(req, res) {
     }
 }
 
+async function getMoviesStats(req, res) {
+    try {
+        let stats = await Movie.aggregate([
+            { $match: { rating: { $gte: 7 } } },
+            {
+                $group: {
+                    _id: '$releaseYear',
+                    avgPrice: { $avg: '$price' },
+                    maxPrice: { $max: '$price' },
+                    minPrice: { $min: '$price' },
+                    totalPrice: { $sum: '$price' },
+                    count: { $sum: 1 }
+                }
+            },
+            { $addFields: { 'releaseYear': '$_id' } },
+            { $project: { '_id': 0 } },
+            { $sort: { 'releaseYear': 1 } }
+        ]);
+        res.status(200).json({
+            status: "success",
+            count: stats.length,
+            data: {
+                stats
+            }
+        })
+    } catch (error) {
+        res.status(404).json({
+            status: "fail",
+            message: error.message,
+            data: null
+        });
+    }
+}
+
+async function getMoviesByGenres(req, res) {
+    try {
+        let genre = req.params.genre;
+        console.log(genre);
+
+        let movies = await Movie.aggregate([
+            { $unwind: '$genres' },
+            {
+                $group: {
+                    _id: '$genres',
+                    count: { $sum: 1 },
+                    movies: { $push: "$name" }
+                }
+            },
+            { $addFields: { 'genre': '$_id' } },
+            { $project: { _id: 0 } },
+            { $match: { genre } }
+        ]);
+        res.status(200).json({
+            status: "success",
+            count: movies.length,
+            data: {
+                movies
+            }
+        })
+    } catch (error) {
+        res.status(404).json({
+            status: "fail",
+            message: error.message,
+            data: null
+        });
+    }
+}
+
 module.exports = {
     getAllMovies,
     getSingleMovie,
     createMovie,
     updateMovie,
-    deleteMovie
+    deleteMovie,
+    getMoviesStats,
+    getMoviesByGenres
 };
