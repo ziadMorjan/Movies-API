@@ -1,4 +1,5 @@
 const mongoes = require("mongoose");
+const fs = require("fs");
 
 let movieSchema = new mongoes.Schema({
     name: {
@@ -51,6 +52,29 @@ let movieSchema = new mongoes.Schema({
         type: Date,
         default: Date.now()
     }
+}, {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
+});
+
+movieSchema.virtual("durationInHours").get(function () {
+    return this.duration / 60;
+});
+
+movieSchema.post("save", function (doc, next) {
+    let content = `${doc.name} is added by Ziad\n`;
+    fs.appendFileSync('./log/log.txt', content);
+    next();
+});
+
+movieSchema.pre(/^find/, function (next) {
+    this.find({ releaseYear: { $lte: new Date().getFullYear() } })
+    next();
+});
+
+movieSchema.pre("aggregate", function (next) {
+    this.pipeline().unshift({ $match: { releaseYear: { $lte: new Date().getFullYear() } } });
+    next();
 });
 
 module.exports = mongoes.model("Movie", movieSchema);

@@ -104,7 +104,7 @@ async function deleteMovie(req, res) {
 async function getMoviesStats(req, res) {
     try {
         let stats = await Movie.aggregate([
-            { $match: { rating: { $gte: 7 } } },
+            // { $match: { rating: { $gte: 7 } } },
             {
                 $group: {
                     _id: '$releaseYear',
