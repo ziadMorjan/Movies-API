@@ -107,17 +107,17 @@ async function getMoviesStats(req, res) {
             // { $match: { rating: { $gte: 7 } } },
             {
                 $group: {
-                    _id: '$releaseYear',
-                    avgPrice: { $avg: '$price' },
-                    maxPrice: { $max: '$price' },
-                    minPrice: { $min: '$price' },
-                    totalPrice: { $sum: '$price' },
+                    _id: "$releaseYear",
+                    avgPrice: { $avg: "$price" },
+                    maxPrice: { $max: "$price" },
+                    minPrice: { $min: "$price" },
+                    totalPrice: { $sum: "$price" },
                     count: { $sum: 1 }
                 }
             },
-            { $addFields: { 'releaseYear': '$_id' } },
-            { $project: { '_id': 0 } },
-            { $sort: { 'releaseYear': 1 } }
+            { $addFields: { "releaseYear": "$_id" } },
+            { $project: { "_id": 0 } },
+            { $sort: { "releaseYear": 1 } }
         ]);
         res.status(200).json({
             status: "success",
@@ -141,15 +141,15 @@ async function getMoviesByGenres(req, res) {
         console.log(genre);
 
         let movies = await Movie.aggregate([
-            { $unwind: '$genres' },
+            { $unwind: "$genres" },
             {
                 $group: {
-                    _id: '$genres',
+                    _id: "$genres",
                     count: { $sum: 1 },
                     movies: { $push: "$name" }
                 }
             },
-            { $addFields: { 'genre': '$_id' } },
+            { $addFields: { "genre": "$_id" } },
             { $project: { _id: 0 } },
             { $match: { genre } }
         ]);

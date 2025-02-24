@@ -1,12 +1,14 @@
 const mongoes = require("mongoose");
 const fs = require("fs");
+const validator = require("validator");
 
 let movieSchema = new mongoes.Schema({
     name: {
         type: String,
         required: [true, "name is required filed"],
         unique: true,
-        trim: true
+        trim: true,
+        validate: [validator.isAlphanumeric(), "name must contain alphabet & numbers only"]
     },
     description: {
         type: String,
@@ -19,7 +21,13 @@ let movieSchema = new mongoes.Schema({
     },
     rating: {
         type: Number,
-        default: 1.0
+        default: 1.0,
+        validate: {
+            validator: function (value) {
+                return value >= 1 && value <= 10;
+            },
+            message: "ratings must be greater than 1 & less than 10"
+        }
     },
     totalRating: {
         type: Number
@@ -63,7 +71,7 @@ movieSchema.virtual("durationInHours").get(function () {
 
 movieSchema.post("save", function (doc, next) {
     let content = `${doc.name} is added by Ziad\n`;
-    fs.appendFileSync('./log/log.txt', content);
+    fs.appendFileSync("./log/log.txt", content);
     next();
 });
 
