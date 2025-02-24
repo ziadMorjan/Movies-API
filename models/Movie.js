@@ -8,7 +8,7 @@ let movieSchema = new mongoes.Schema({
         required: [true, "name is required filed"],
         unique: true,
         trim: true,
-        validate: [validator.isAlphanumeric(), "name must contain alphabet & numbers only"]
+        validate: [validator.isAlphanumeric, "name must contain alphabet & numbers only"]
     },
     description: {
         type: String,
