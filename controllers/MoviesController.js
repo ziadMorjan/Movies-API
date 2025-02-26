@@ -1,3 +1,4 @@
+const CustomError = require("../utils/CustomError");
 const Movie = require("./../models/Movie");
 const QueryManipulater = require("./../utils/QueryManipulater");
 const { asyncErrorHandler } = require("./ErrorController");
@@ -34,6 +35,10 @@ let createMovie = asyncErrorHandler(async function (req, res) {
 let getSingleMovie = asyncErrorHandler(async function (req, res) {
     let movie = await Movie.findById(req.params.id);
 
+    if (!movie) {
+        throw new CustomError(`There is no movie with id '${req.params.id}'`, 404);
+    }
+
     res.status(200).json({
         status: "success",
         data: {
@@ -43,10 +48,14 @@ let getSingleMovie = asyncErrorHandler(async function (req, res) {
 });
 
 let updateMovie = asyncErrorHandler(async function (req, res) {
-    let movie = await Movie.findByIdAndUpdate(req.params.id, req.body, {
+    let updatedMovie = await Movie.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true
     });
+
+    if (!updatedMovie) {
+        throw new CustomError(`There is no movie with id '${req.params.id}'`, 404);
+    }
 
     res.status(200).json({
         status: "success",
@@ -57,7 +66,11 @@ let updateMovie = asyncErrorHandler(async function (req, res) {
 });
 
 let deleteMovie = asyncErrorHandler(async function (req, res) {
-    await Movie.findByIdAndDelete(req.params.id);
+    let deletedMovie = await Movie.findByIdAndDelete(req.params.id);
+
+    if (!deletedMovie) {
+        throw new CustomError(`There is no movie with id '${req.params.id}'`, 404);
+    }
 
     res.status(204).json({
         status: "success",
