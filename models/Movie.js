@@ -8,7 +8,12 @@ let movieSchema = new mongoes.Schema({
         required: [true, "name is required filed"],
         unique: true,
         trim: true,
-        validate: [validator.isAlphanumeric, "name must contain alphabet & numbers only"]
+        validate: {
+            validator: function (value) {
+                return value >= 3;
+            },
+            message: "name must be larger than 3 characters"
+        }
     },
     description: {
         type: String,

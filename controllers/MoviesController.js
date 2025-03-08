@@ -22,7 +22,7 @@ let getAllMovies = asyncErrorHandler(async function (req, res) {
 });
 
 let createMovie = asyncErrorHandler(async function (req, res) {
-    let newMovie = Movie.create(req.body);
+    let newMovie = await Movie.create(req.body);
 
     res.status(201).json({
         status: "success",
@@ -60,7 +60,7 @@ let updateMovie = asyncErrorHandler(async function (req, res) {
     res.status(200).json({
         status: "success",
         data: {
-            movie
+            updatedMovie
         }
     });
 });
