@@ -19,6 +19,4 @@ router.route("/:id").
     .patch(MoviesController.updateMovie)
     .delete(MoviesController.deleteMovie);
 
-module.exports = {
-    router
-};
+module.exports = router;

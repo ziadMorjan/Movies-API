@@ -1,11 +1,7 @@
 const express = require("express");
 const UserController = require("./../controllers/UserController");
-const AuthController = require("./../controllers/AuthController");
 
 let router = express.Router();
-
-router.route("/signup")
-    .post(AuthController.signup);
 
 router.route("/")
     .get(UserController.getAllUsers)
@@ -16,6 +12,4 @@ router.route("/:id")
     .patch(UserController.updateUser)
     .delete(UserController.deleteUser);
 
-module.exports = {
-    router
-}
+module.exports = router;

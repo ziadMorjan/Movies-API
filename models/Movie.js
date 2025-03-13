@@ -10,7 +10,7 @@ let movieSchema = new mongoes.Schema({
         trim: true,
         validate: {
             validator: function (value) {
-                return value >= 3;
+                return value.length >= 3;
             },
             message: "name must be larger than 3 characters"
         }
