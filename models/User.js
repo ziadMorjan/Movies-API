@@ -37,6 +37,16 @@ let userSchema = new mongoose.Schema({
     photo: {
         type: String,
         default: ""
+    },
+    role: {
+        type: String,
+        enum: ["admin", "user"],
+        default: "user"
+    },
+    passwordChangedAt: Date,
+    createdAt: {
+        type: Date,
+        default: Date.now()
     }
 });
 

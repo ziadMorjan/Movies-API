@@ -1,5 +1,6 @@
 const express = require("express");
 const MoviesController = require("./../controllers/MoviesController");
+const { protect, allowTo } = require("../middlewares/AuthMiddleware");
 
 let router = express.Router();
 
@@ -11,12 +12,12 @@ router.route("/stats")
 
 
 router.route("/")
-    .get(MoviesController.getAllMovies)
-    .post(MoviesController.createMovie);
+    .get(protect, MoviesController.getAllMovies)
+    .post(protect, allowTo("admin"), MoviesController.createMovie);
 
 router.route("/:id").
     get(MoviesController.getSingleMovie)
-    .patch(MoviesController.updateMovie)
-    .delete(MoviesController.deleteMovie);
+    .patch(protect, allowTo("admin"), MoviesController.updateMovie)
+    .delete(protect, allowTo("admin"), MoviesController.deleteMovie);
 
 module.exports = router;

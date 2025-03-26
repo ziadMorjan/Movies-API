@@ -1,5 +1,11 @@
 const CustomError = require("./../utils/CustomError");
 
+function asyncErrorHandler(asyncFunc) {
+    return (req, res, next) => {
+        asyncFunc(req, res, next).catch(err => next(err));
+    }
+}
+
 function globalErrorHandler(error, req, res, next) {
     error.statusCode = error.statusCode || 500;
     error.status = error.status || "error";
@@ -9,14 +15,10 @@ function globalErrorHandler(error, req, res, next) {
         if (error.name == "CastError") error = CastErrorHandler(error);
         if (error.code == 11000) error = DuplicateKeyHandler(error);
         if (error.name == "ValidationError") error = ValidationErrorHandler(error);
+        if (error.name == "JsonWebTokenError") error = JsonWebTokenErrorHandler();
+        if (error.name == "TokenExpiredError") error = TokenExpiredErrorHandler();
 
         prodError(error, res);
-    }
-}
-
-function asyncErrorHandler(asyncFunc) {
-    return (req, res, next) => {
-        asyncFunc(req, res, next).catch(err => next(err));
     }
 }
 
@@ -57,6 +59,14 @@ function DuplicateKeyHandler(error) {
 function ValidationErrorHandler(error) {
     let message = Object.values(error.errors).map(value => value.message).join(". ");
     return new CustomError(`Validations Error: ${message}`, 400);
+}
+
+function JsonWebTokenErrorHandler() {
+    return new CustomError("Invalid token! Please login.", 401);
+}
+
+function TokenExpiredErrorHandler() {
+    return new CustomError("Token is expired! Please login again.", 401);
 }
 
 module.exports = {

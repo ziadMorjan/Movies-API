@@ -11,10 +11,7 @@ let signup = asyncErrorHandler(async function (req, res) {
 
     res.status(201).json({
         status: "success",
-        token,
-        data: {
-            newUser
-        }
+        token
     });
 });
 
