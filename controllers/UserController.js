@@ -81,8 +81,8 @@ let deleteUser = asyncErrorHandler(async function (req, res) {
 
 let changePassword = asyncErrorHandler(async function (req, res) {
     let user = await User.findById(req.user.id).select("+password");
-    if (!bcryptjs.compareSync(req.body.oldPassword, user.password))
-        throw new CustomError("The old password you provided is wrong!", 400);
+    if (!bcryptjs.compareSync(req.body.currentPassword, user.password))
+        throw new CustomError("The current password you provided is wrong!", 400);
 
     user.password = req.body.newPassword;
     user.confirmPassword = req.body.newConfirmPassword;
@@ -98,11 +98,41 @@ let changePassword = asyncErrorHandler(async function (req, res) {
 
 });
 
+let removeNotAllowedProps = function (reqBody, ...allowedProps) {
+    Object.keys(reqBody).forEach((prop) => {
+        if (!allowedProps.includes(prop))
+            delete reqBody[prop];
+    });
+}
+
+let updateMe = asyncErrorHandler(async function (req, res) {
+    if (req.body.role)
+        throw new CustomError("You can not change your role!", 403);
+
+    if (req.body.password || req.body.confirmPassword)
+        throw new CustomError("You can not change your password from here!", 403);
+
+    removeNotAllowedProps(req.body, "firstName", "lastName", "email", "photo");
+
+    let updatedUser = await User.findByIdAndUpdate(req.user.id, req.body, {
+        runValidators: true,
+        new: true
+    });
+
+    res.status(200).json({
+        status: "success",
+        data: {
+            updatedUser
+        }
+    });
+});
+
 module.exports = {
     getAllUsers,
     createUser,
     getUser,
     updateUser,
     deleteUser,
-    changePassword
+    changePassword,
+    updateMe
 }

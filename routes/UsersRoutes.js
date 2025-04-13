@@ -7,6 +7,9 @@ let router = express.Router();
 router.route("/changePassword")
     .patch(protect, UserController.changePassword);
 
+router.route("/updateMe")
+    .patch(protect, UserController.updateMe);
+
 router.route("/")
     .get(UserController.getAllUsers)
     .post(protect, allowTo("admin"), UserController.createUser);

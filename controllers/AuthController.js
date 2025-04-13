@@ -7,6 +7,9 @@ const crypto = require("crypto");
 const { sendRestPasswordEmail } = require("./../utils/emails");
 
 let signup = asyncErrorHandler(async function (req, res) {
+    if (req.body.role && req.body.role == "admin")
+        throw new CustomError("You can not sign up as an admin!", 403);
+
     let newUser = await User.create(req.body);
 
     let token = JWTs.createToken(newUser.id);
