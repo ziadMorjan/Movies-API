@@ -2,6 +2,8 @@ const CustomError = require("../utils/CustomError");
 const QueryManipulater = require("../utils/QueryManipulater");
 const User = require("./../models/User");
 const { asyncErrorHandler } = require("./ErrorController");
+const bcryptjs = require("bcryptjs");
+let JWTs = require("./../utils/JWTs");
 
 let getAllUsers = asyncErrorHandler(async function (req, res) {
     let qm = new QueryManipulater(User, req)
@@ -77,10 +79,30 @@ let deleteUser = asyncErrorHandler(async function (req, res) {
     });
 });
 
+let changePassword = asyncErrorHandler(async function (req, res) {
+    let user = await User.findById(req.user.id).select("+password");
+    if (!bcryptjs.compareSync(req.body.oldPassword, user.password))
+        throw new CustomError("The old password you provided is wrong!", 400);
+
+    user.password = req.body.newPassword;
+    user.confirmPassword = req.body.newConfirmPassword;
+    user.passwordChangedAt = Date.now();
+    await user.save();
+
+    let token = JWTs.createToken(user.id);
+
+    res.status(200).json({
+        status: "success",
+        token
+    });
+
+});
+
 module.exports = {
     getAllUsers,
     createUser,
     getUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    changePassword
 }
