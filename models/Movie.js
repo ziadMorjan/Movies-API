@@ -71,7 +71,7 @@ let movieSchema = new mongoes.Schema({
 });
 
 movieSchema.virtual("durationInHours").get(function () {
-    return this.duration / 60;
+    return (this.duration / 60).toFixed(2);
 });
 
 movieSchema.post("save", function (doc, next) {

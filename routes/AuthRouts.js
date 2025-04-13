@@ -9,4 +9,10 @@ router.route("/signup")
 router.route("/login")
     .post(AuthController.login);
 
+router.route("/forgetPassword")
+    .post(AuthController.forgetPassword);
+
+router.route("/resetPassword/:resetToken")
+    .patch(AuthController.resetPassword);
+
 module.exports = router;

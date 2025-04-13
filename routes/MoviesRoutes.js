@@ -12,7 +12,7 @@ router.route("/stats")
 
 
 router.route("/")
-    .get(protect, MoviesController.getAllMovies)
+    .get(MoviesController.getAllMovies)
     .post(protect, allowTo("admin"), MoviesController.createMovie);
 
 router.route("/:id").
