@@ -4,6 +4,7 @@
         "lastName": "1",
         "email": "admin1@gmail.com",
         "password": "12345678",
+        "confirmPassword": "12345678",
         "photo": "",
         "role": "admin"
     },
@@ -12,6 +13,7 @@
         "lastName": "1",
         "email": "user1@gmail.com",
         "password": "12345678",
+        "confirmPassword": "12345678",
         "photo": ""
     }
 ]

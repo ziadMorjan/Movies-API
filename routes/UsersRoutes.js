@@ -10,6 +10,9 @@ router.route("/changePassword")
 router.route("/updateMe")
     .patch(protect, UserController.updateMe);
 
+router.route("/deleteMe")
+    .patch(protect, UserController.deleteMe);
+
 router.route("/")
     .get(UserController.getAllUsers)
     .post(protect, allowTo("admin"), UserController.createUser);

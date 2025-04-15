@@ -53,7 +53,6 @@ let forgetPassword = asyncErrorHandler(async function (req, res) {
 
     let resetLink = `${req.protocol}://${req.get("host")}/api/v1/auth/resetPassword/${resetToken}`;
     let emailText = `We receive your request to reset your password, use this link to reset password\n\n${resetLink}\n\nThis link is valid for 10 minutes`;
-    console.log(emailText);
 
     try {
         await sendRestPasswordEmail({

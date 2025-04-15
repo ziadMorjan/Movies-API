@@ -127,6 +127,14 @@ let updateMe = asyncErrorHandler(async function (req, res) {
     });
 });
 
+let deleteMe = asyncErrorHandler(async function (req, res) {
+    await User.findByIdAndUpdate(req.user.id, { active: false });
+    res.status(204).json({
+        status: "success",
+        data: null
+    });
+});
+
 module.exports = {
     getAllUsers,
     createUser,
@@ -134,5 +142,6 @@ module.exports = {
     updateUser,
     deleteUser,
     changePassword,
-    updateMe
+    updateMe,
+    deleteMe
 }

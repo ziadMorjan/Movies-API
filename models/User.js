@@ -43,6 +43,10 @@ let userSchema = new mongoose.Schema({
         enum: ["admin", "user"],
         default: "user"
     },
+    active: {
+        type: Boolean,
+        default: true
+    },
     resetToken: String,
     resetTokenExpired: Date,
     passwordChangedAt: Date,
@@ -60,5 +64,10 @@ userSchema.pre("save", function (next) {
 
     next();
 });
+
+userSchema.pre(/^find/, function (next) {
+    this.find({ active: { $ne: false } });
+    next();
+})
 
 module.exports = mongoose.model("User", userSchema);
