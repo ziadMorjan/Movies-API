@@ -6,18 +6,28 @@ const bcryptjs = require("bcryptjs");
 const crypto = require("crypto");
 const { sendRestPasswordEmail } = require("./../utils/emails");
 
+let sendRes = function (id, res, statusCode) {
+    let token = JWTs.createToken(id);
+
+    res.cookie("token", token, {
+        maxAge: process.env.JWT_EXPIRES_IN,
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production" ? true : false
+    });
+
+    res.status(statusCode).json({
+        status: "success",
+        token
+    });
+}
+
 let signup = asyncErrorHandler(async function (req, res) {
     if (req.body.role && req.body.role == "admin")
         throw new CustomError("You can not sign up as an admin!", 403);
 
     let newUser = await User.create(req.body);
 
-    let token = JWTs.createToken(newUser.id);
-
-    res.status(201).json({
-        status: "success",
-        token
-    });
+    sendRes(newUser._id, res, 201);
 });
 
 let login = asyncErrorHandler(async function (req, res) {
@@ -31,12 +41,7 @@ let login = asyncErrorHandler(async function (req, res) {
     if (!user || !bcryptjs.compareSync(password, user.password))
         throw new CustomError("Email or password is wrong", 400);
 
-    let token = JWTs.createToken(user.id);
-
-    res.status(200).json({
-        status: "success",
-        token
-    });
+    sendRes(user._id, res, 200);
 
 });
 
@@ -92,12 +97,7 @@ let resetPassword = asyncErrorHandler(async function (req, res) {
     user.passwordChangedAt = Date.now();
     await user.save();
 
-    let token = JWTs.createToken(user.id);
-
-    res.status(200).json({
-        status: "success",
-        token
-    })
+    sendRes(user._id, res, 200);
 });
 
 module.exports = {

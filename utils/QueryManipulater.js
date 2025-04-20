@@ -48,7 +48,7 @@ class QueryManipulater {
 
     paginate() {
         let page = +this.req.query.page || 1;
-        let limit = +this.req.query.limit || 5;
+        let limit = +this.req.query.limit || Infinity;
         let skip = (page - 1) * limit;
         this.query = this.query.skip(skip).limit(limit);
 
