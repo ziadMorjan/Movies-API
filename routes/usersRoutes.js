@@ -1,4 +1,5 @@
 import express from "express";
+import { protect, allowTo } from "../middlewares/authMiddleware.js";
 import {
     getUsersController,
     getUserController,
@@ -7,6 +8,8 @@ import {
 } from "../controllers/userController.js";
 
 const router = express.Router();
+
+router.use(protect, allowTo("admin"));
 
 router.route("/")
     .get(getUsersController);

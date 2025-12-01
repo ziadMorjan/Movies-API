@@ -16,13 +16,13 @@ const router = express.Router();
 
 router
     .route("/")
-    .post(createEpisodeValidator, createEpisodeController)
-    .get(getEpisodesController);
+    .get(getEpisodesController)
+    .post(protect, allowTo("admin"), createEpisodeValidator, createEpisodeController);
 
 router
     .route("/:id")
     .get(episodeIdValidator, getEpisodeController)
-    .patch(episodeIdValidator, updateEpisodeController)
-    .delete(episodeIdValidator, deleteEpisodeController);
+    .patch(protect, allowTo("admin"), episodeIdValidator, updateEpisodeController)
+    .delete(protect, allowTo("admin"), episodeIdValidator, deleteEpisodeController);
 
 export default router;

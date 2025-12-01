@@ -5,10 +5,8 @@ import User from "../models/User.js";
 
 let protect = asyncErrorHandler(async function (req, res, next) {
     // check if token send with req headers
-    let authHeader = req.headers.authorization;
-    let token;
-    if (authHeader && authHeader.startsWith("Bearer"))
-        token = authHeader.split(" ")[1];
+    const token = req.cookies?.token;
+
     if (!token)
         throw new CustomError("You are not logged in, please login", 401);
 
@@ -34,6 +32,9 @@ let protect = asyncErrorHandler(async function (req, res, next) {
 
 let allowTo = function (...roles) {
     return function (req, res, next) {
+        if (!req.user) {
+            throw new CustomError("You are not logged in", 401);
+        }
         if (!roles.includes(req.user.role))
             throw new CustomError("You do not have the permeation to preform this action", 403);
         next();

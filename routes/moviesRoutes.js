@@ -13,17 +13,19 @@ import {
     movieIdValidator
 } from "../utils/validators/moviesValidator.js";
 
+import { allowTo, protect } from "../middlewares/authMiddleware.js";
+
 const router = express.Router();
 
 router
     .route("/")
-    .post(createMovieValidator, createMovieController)
-    .get(getMoviesController);
+    .get(getMoviesController)
+    .post(protect, allowTo("admin"), createMovieValidator, createMovieController);
 
 router
     .route("/:id")
     .get(movieIdValidator, getMovieController)
-    .patch(movieIdValidator, updateMovieController)
-    .delete(movieIdValidator, deleteMovieController);
+    .patch(protect, allowTo("admin"), movieIdValidator, updateMovieController)
+    .delete(protect, allowTo("admin"), movieIdValidator, deleteMovieController);
 
 export default router;

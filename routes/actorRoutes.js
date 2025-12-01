@@ -11,19 +11,20 @@ import {
     createActorValidator,
     actorIdValidator,
 } from "../utils/validators/actorValidator.js";
+import { allowTo, protect } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
 router
     .route("/")
-    .post(createActorValidator, createActorController)
-    .get(getActorsController);
+    .get(getActorsController)
+    .post(protect, allowTo("admin"), createActorValidator, createActorController);
 
 router
     .route("/:id")
     .get(actorIdValidator, getActorController)
-    .patch(actorIdValidator, updateActorController)
-    .delete(actorIdValidator, deleteActorController);
+    .patch(protect, allowTo("admin"), actorIdValidator, updateActorController)
+    .delete(protect, allowTo("admin"), actorIdValidator, deleteActorController);
 
 export default router;
 

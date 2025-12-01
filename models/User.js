@@ -59,6 +59,19 @@ userSchema.pre("save", function (next) {
 userSchema.pre(/^find/, function (next) {
     this.find({ active: { $ne: false } });
     next();
-})
+});
+
+userSchema.methods.generatePasswordResetToken = function () {
+    const token = crypto.randomBytes(32).toString("hex");
+
+    this.resetToken = crypto
+        .createHash("sha256")
+        .update(token)
+        .digest("hex");
+
+    this.resetTokenExpired = Date.now() + 10 * 60 * 1000; // 10 min
+
+    return token; // غير مشفر - نرسله للمستخدم بالإيميل
+};
 
 export default mongoose.model("User", userSchema);

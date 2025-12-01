@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 import movieRoutes from "./routes/moviesRoutes.js";
 import actorRoutes from "./routes/actorRoutes.js";
@@ -19,7 +20,20 @@ const app = express();
 // ----------------------
 // Middlewares
 // ----------------------
-app.use(cors());
+import cors from "cors";
+
+app.use(
+    cors({
+        origin: [
+            "http://localhost:3000",
+            "http://localhost:5173",
+            process.env.CLIENT_URL
+        ],
+        credentials: true, // 🔥 يسمح بإرسال واستقبال cookies
+    })
+);
+
+app.use(cookieParser());
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
@@ -40,9 +54,8 @@ app.use("/api/v1/genres", genreRoutes);
 app.use("/api/v1/series", seriesRoutes);
 app.use("/api/v1/seasons", seasonRoutes);
 app.use("/api/v1/episodes", episodeRoutes);
-
-app.use("/api/v1/auth", authRoutes);   // Signup/Login
-app.use("/api/v1/users", userRoutes);  // Users CRUD
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/users", userRoutes);
 
 // ----------------------
 // Handle Unknown Routes

@@ -11,18 +11,19 @@ import {
     createGenreValidator,
     genreIdValidator,
 } from "../utils/validators/genreValidator.js";
+import { allowTo, protect } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
 router
     .route("/")
-    .post(createGenreValidator, createGenreController)
-    .get(getGenresController);
+    .get(getGenresController)
+    .post(protect, allowTo("admin"), createGenreValidator, createGenreController);
 
 router
     .route("/:id")
     .get(genreIdValidator, getGenreController)
-    .patch(genreIdValidator, updateGenreController)
-    .delete(genreIdValidator, deleteGenreController);
+    .patch(protect, allowTo("admin"), genreIdValidator, updateGenreController)
+    .delete(protect, allowTo("admin"), genreIdValidator, deleteGenreController);
 
 export default router;
