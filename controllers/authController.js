@@ -3,7 +3,6 @@ import User from "../models/User.js";
 import CustomError from "../utils/CustomError.js";
 import { asyncErrorHandler } from "../middlewares/errorMiddleware.js";
 import { createToken } from "../utils/JWTs.js";
-import { asyncErrorHandler } from "../middlewares/errorMiddleware.js";
 import { authenticateUser } from "../services/authService.js";
 import { createUser } from "../services/userService.js";
 import cookieOptions from "../utils/cookieOptions.js";

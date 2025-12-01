@@ -11,6 +11,7 @@ import {
     createEpisodeValidator,
     episodeIdValidator,
 } from "../utils/validators/episodeValidator.js";
+import { allowTo, protect } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
