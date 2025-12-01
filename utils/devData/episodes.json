@@ -1,0 +1,29 @@
+[
+  {
+    "series": "Breaking Bad",
+    "seasonNumber": 1,
+    "episodeNumber": 1,
+    "title": "Pilot",
+    "overview": "Walt turns to crime",
+    "runtime": 58,
+    "videoUrl": "ep1.mp4"
+  },
+  {
+    "series": "Breaking Bad",
+    "seasonNumber": 1,
+    "episodeNumber": 2,
+    "title": "Cat's in the Bag",
+    "overview": "Body disposal issues",
+    "runtime": 48,
+    "videoUrl": "ep2.mp4"
+  },
+  {
+    "series": "Stranger Things",
+    "seasonNumber": 1,
+    "episodeNumber": 1,
+    "title": "The Vanishing",
+    "overview": "Will goes missing",
+    "runtime": 52,
+    "videoUrl": "st-ep1.mp4"
+  }
+]

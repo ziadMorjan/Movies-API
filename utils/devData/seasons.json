@@ -1,0 +1,20 @@
+[
+    {
+        "series": "Breaking Bad",
+        "seasonNumber": 1,
+        "poster": "bb-s1.jpg",
+        "overview": "Season 1 overview"
+    },
+    {
+        "series": "Breaking Bad",
+        "seasonNumber": 2,
+        "poster": "bb-s2.jpg",
+        "overview": "Season 2 overview"
+    },
+    {
+        "series": "Stranger Things",
+        "seasonNumber": 1,
+        "poster": "st-s1.jpg",
+        "overview": "Season 1 overview"
+    }
+]

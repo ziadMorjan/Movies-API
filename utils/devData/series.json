@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Breaking Bad",
+    "description": "Chemistry teacher turns into a drug kingpin",
+    "poster": "bb.jpg",
+    "backdrop": "bb-bg.jpg",
+    "genres": ["Crime", "Drama", "Thriller"],
+    "cast": ["Bryan Cranston", "Aaron Paul"]
+  },
+  {
+    "name": "Stranger Things",
+    "description": "Kids vs monsters vs government experiments",
+    "poster": "st.jpg",
+    "backdrop": "st-bg.jpg",
+    "genres": ["Drama", "Fantasy", "Horror"],
+    "cast": ["Millie Bobby Brown", "Finn Wolfhard"]
+  }
+]
