@@ -6,7 +6,7 @@ import {
     getActorById,
     updateActor,
     deleteActor,
-} from "../services/ActorService.js";
+} from "../services/actorService.js";
 
 export const createActorController = asyncErrorHandler(async (req, res) => {
     const actor = await createActor(req.body);
