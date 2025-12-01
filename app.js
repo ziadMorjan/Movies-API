@@ -18,6 +18,11 @@ import { globalErrorHandler } from "./middlewares/errorMiddleware.js";
 const app = express();
 
 // ----------------------
+// FIX: Required for rate-limit on Render/Vercel
+// ----------------------
+app.set("trust proxy", 1); // X-Forwarded-For
+
+// ----------------------
 // Middlewares
 // ----------------------
 app.use(
@@ -27,7 +32,7 @@ app.use(
             "http://localhost:5173",
             process.env.CLIENT_URL
         ],
-        credentials: true, // 🔥 يسمح بإرسال واستقبال cookies
+        credentials: true, // يسمح بالـ cookies
     })
 );
 
