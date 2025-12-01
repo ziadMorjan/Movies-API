@@ -9,7 +9,6 @@ import cookieOptions from "../utils/cookieOptions.js";
 import { sendEmail } from "../utils/sendEmail.js";
 import { resetPasswordTemplate } from "../utils/emailTemplates/resetPasswordTemplate.js";
 
-
 export const signupController = asyncErrorHandler(async (req, res) => {
     const user = await createUser(req.body);
     const token = createToken(user._id);
@@ -34,7 +33,7 @@ export const loginController = asyncErrorHandler(async (req, res) => {
         .status(200)
         .json({
             status: "success",
-            data: { user }
+            data: { user },
         });
 });
 
@@ -61,58 +60,70 @@ export const forgotPasswordController = asyncErrorHandler(async (req, res) => {
     // 2) Create reset link
     const resetURL = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
 
-    // 3) Send email 
-
     try {
+        // 3) Send email
         await sendEmail({
             to: user.email,
             subject: "CimaFlix Password Reset",
-            html: resetPasswordTemplate(resetURL)
+            html: resetPasswordTemplate(resetURL),
         });
 
+        res.status(200).json({
+            status: "success",
+            message: "Password reset email sent",
+        });
     } catch (error) {
+        // لو فشل الإرسال نرجع كل شيء زي ما كان
         user.resetToken = undefined;
         user.resetTokenExpired = undefined;
         await user.save({ validateBeforeSave: false });
-        throw new CustomError("There was an error sending the email. Try again later.", 500);
-    }
-    res.status(200).json({
-        status: "success",
-        message: "Password reset email sent"
-    });
 
+        throw new CustomError(
+            "There was an error sending the email. Try again later.",
+            500
+        );
+    }
 });
 
 export const resetPasswordController = asyncErrorHandler(async (req, res) => {
     const { resetToken } = req.params;
     const { password, confirmPassword } = req.body;
 
+    if (!password || !confirmPassword) {
+        throw new CustomError("Password and confirmPassword are required", 400);
+    }
+
+    if (password !== confirmPassword) {
+        throw new CustomError("Passwords do not match", 400);
+    }
+
+    // 1) Hash token from URL
     const hashedToken = crypto
         .createHash("sha256")
         .update(resetToken)
         .digest("hex");
 
-    // 1) Find user with matching hash and token not expired
+    // 2) Find user by hashed token + not expired
     const user = await User.findOne({
-        resetPasswordToken: hashedToken,
-        resetPasswordExpires: { $gt: Date.now() }
+        resetToken: hashedToken,
+        resetTokenExpired: { $gt: Date.now() },
     });
 
     if (!user) {
         throw new CustomError("Invalid or expired reset token", 400);
     }
 
-    // 2) Update password
+    // 3) Update password
     user.password = password;
+    user.passwordChangedAt = Date.now();
 
-    // 3) Remove reset fields
+    // 4) Clear reset fields
     user.resetToken = undefined;
     user.resetTokenExpired = undefined;
-    user.passwordChangedAt = Date.now();
 
     await user.save();
 
-    // 4) Auto login → send new cookie token
+    // 5) Auto login → send new cookie token
     const token = createToken(user._id);
 
     res
@@ -121,6 +132,6 @@ export const resetPasswordController = asyncErrorHandler(async (req, res) => {
         .json({
             status: "success",
             message: "Password reset successful",
-            user
+            user,
         });
 });

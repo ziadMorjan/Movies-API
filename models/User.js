@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcryptjs from "bcryptjs";
+import crypto from "crypto";
 
 let userSchema = new mongoose.Schema(
     {
@@ -69,9 +70,9 @@ userSchema.methods.generatePasswordResetToken = function () {
         .update(token)
         .digest("hex");
 
-    this.resetTokenExpired = Date.now() + 10 * 60 * 1000; // 10 min
+    this.resetTokenExpired = Date.now() + 10 * 60 * 1000;
 
-    return token; // غير مشفر - نرسله للمستخدم بالإيميل
+    return token;
 };
 
 export default mongoose.model("User", userSchema);
