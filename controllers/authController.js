@@ -10,6 +10,20 @@ import { sendEmail } from "../utils/sendEmail.js";
 import { resetPasswordTemplate } from "../utils/emailTemplates/resetPasswordTemplate.js";
 import { errorLogger } from "../utils/logger.js";
 
+export const getLoggedInUser = asyncErrorHandler(async (req, res) => {
+    if (!req.user) {
+        throw new CustomError("User not logged in.", 401);
+    }
+
+
+    req.user.resetToken = undefined;
+    req.user.resetTokenExpired = undefined;
+    res.status(200).json({
+        status: "success",
+        data: { user: req.user },
+    });
+});
+
 export const signupController = asyncErrorHandler(async (req, res) => {
     const user = await createUser(req.body);
     const token = createToken(user._id);

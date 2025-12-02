@@ -14,6 +14,7 @@ import {
 } from "../utils/validators/authValidator.js";
 
 import {
+    getLoggedInUser,
     signupController,
     loginController,
     forgotPasswordController,
@@ -23,6 +24,7 @@ import {
 
 const router = express.Router();
 
+router.get("/me", protect, getLoggedInUser);
 router.post("/signup", signupValidator, signupController);
 router.post("/login", loginLimiter, loginValidator, loginController);
 router.post("/forget-password", forgotPasswordLimiter, forgotPasswordValidator, forgotPasswordController);
