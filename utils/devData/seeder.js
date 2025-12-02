@@ -12,6 +12,7 @@ import Episode from "../../models/Episode.js";
 import Genre from "../../models/Genre.js";
 import Actor from "../../models/Actor.js";
 import User from "../../models/User.js";
+import { errorLogger } from "../logger.js";
 
 // ESM path fix
 const __filename = fileURLToPath(import.meta.url);
@@ -43,7 +44,7 @@ async function importData() {
         console.log("🚀 Importing data...");
 
         // 1) Insert genres
-        const genreDocs = await Genre.insertMany(
+        const genreDocs = await Genre.create(
             genresArray.map((g) => ({
                 name_en: g,
                 type: "both"
@@ -54,7 +55,7 @@ async function importData() {
         genreDocs.forEach((g) => (genreMap[g.name_en] = g._id));
 
         // 2) Insert actors
-        const actorDocs = await Actor.insertMany(
+        const actorDocs = await Actor.create(
             actorsArray.map((a) => ({ name: a }))
         );
 
@@ -62,7 +63,7 @@ async function importData() {
         actorDocs.forEach((a) => (actorMap[a.name] = a._id));
 
         // 3) Insert series (no refs yet)
-        const seriesDocs = await Series.insertMany(
+        const seriesDocs = await Series.create(
             seriesList.map((s) => ({
                 name: s.name,
                 description: s.description,
@@ -77,7 +78,7 @@ async function importData() {
         seriesDocs.forEach((s) => (seriesMap[s.name] = s._id));
 
         // 4) Insert seasons (linked to series)
-        const seasonDocs = await Season.insertMany(
+        const seasonDocs = await Season.create(
             seasons.map((s) => ({
                 series: seriesMap[s.series],
                 seasonNumber: s.seasonNumber,
@@ -93,7 +94,7 @@ async function importData() {
         });
 
         // 5) Insert episodes (linked to series + season)
-        const episodeDocs = await Episode.insertMany(
+        const episodeDocs = await Episode.create(
             episodes.map((ep) => ({
                 series: seriesMap[ep.series],
                 season: seasonLookup[`${seriesMap[ep.series]}-${ep.seasonNumber}`],
@@ -106,7 +107,7 @@ async function importData() {
         );
 
         // 6) Insert movies
-        const movieDocs = await Movie.insertMany(
+        const movieDocs = await Movie.create(
             movies.map((m) => ({
                 name: m.name,
                 description: m.description,
@@ -120,12 +121,13 @@ async function importData() {
         );
 
         // 7) Insert users
-        await User.insertMany(users);
+        await User.create(users);
 
         console.log("🎉 All data imported successfully!");
         process.exit();
     } catch (err) {
-        console.error("❌ Error importing data:", err);
+        console.error("❌ Error importing data");
+        errorLogger(err);
         process.exit(1);
     }
 }
@@ -143,7 +145,8 @@ async function deleteData() {
         console.log("🗑 All data deleted!");
         process.exit();
     } catch (err) {
-        console.error("❌ Error deleting data:", err);
+        console.error("❌ Error deleting data");
+        errorLogger(err);
         process.exit(1);
     }
 }

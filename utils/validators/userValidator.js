@@ -1,9 +1,9 @@
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 import validatorMiddleware from "../../middlewares/validatorMiddleware.js";
 import CustomError from "../../utils/CustomError.js";
 import User from "../../models/User.js";
 
-export const signupValidator = [
+export const createUserValidator = [
     body("firstName")
         .notEmpty().withMessage("First name is required"),
 
@@ -34,12 +34,9 @@ export const signupValidator = [
     validatorMiddleware
 ];
 
-export const loginValidator = [
-    body("email")
-        .notEmpty().isEmail(),
-
-    body("password")
-        .notEmpty(),
+export const userIdValidator = [
+    param("id")
+        .isMongoId().withMessage("Invalid user ID"),
 
     validatorMiddleware
 ];

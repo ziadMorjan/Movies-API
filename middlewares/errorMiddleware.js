@@ -1,4 +1,5 @@
 import CustomError from "../utils/CustomError.js";
+import { errorLogger } from "../utils/logger.js"
 
 function asyncErrorHandler(asyncFunc) {
     return (req, res, next) => {
@@ -36,9 +37,9 @@ function prodError(error, res) {
         res.status(error.statusCode).json({
             status: error.status,
             message: error.message
-
         });
     } else {
+        errorLogger(error);
         res.status(500).json({
             status: "error",
             message: "There is some thing wrong! pleas try again later."
@@ -51,13 +52,13 @@ function CastErrorHandler(error) {
 }
 
 function DuplicateKeyHandler(error) {
-    let key = Object.keys(error.keyValue)[0];
-    let value = error.keyValue[Object.keys(error.keyValue)[0]];
+    const key = Object.keys(error.keyValue)[0];
+    const value = error.keyValue[Object.keys(error.keyValue)[0]];
     return new CustomError(`There is already document with ${key}: ${value}`, 400);
 }
 
 function ValidationErrorHandler(error) {
-    let message = Object.values(error.errors).map(value => value.message).join(". ");
+    const message = Object.values(error.errors).map(value => value.message).join(". ");
     return new CustomError(`Validations Error: ${message}`, 400);
 }
 

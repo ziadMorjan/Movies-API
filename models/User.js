@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import bcryptjs from "bcryptjs";
 import crypto from "crypto";
 
-let userSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
     {
         firstName: { type: String, required: true },
         lastName: { type: String, required: true },
@@ -12,7 +12,7 @@ let userSchema = new mongoose.Schema(
         password: {
             type: String,
             required: true,
-            select: false, // hide password
+            select: false,
         },
 
         photo: { type: String, default: "" },
@@ -42,18 +42,14 @@ let userSchema = new mongoose.Schema(
                 addedAt: { type: Date, default: Date.now },
             },
         ],
-
-        createdAt: { type: Date, default: Date.now },
     },
     { timestamps: true }
 );
 
 userSchema.pre("save", function (next) {
     if (!this.isModified("password")) return next();
-
     this.password = bcryptjs.hashSync(this.password, 10);
     this.confirmPassword = undefined;
-
     next();
 });
 
@@ -65,10 +61,7 @@ userSchema.pre(/^find/, function (next) {
 userSchema.methods.generatePasswordResetToken = function () {
     const token = crypto.randomBytes(32).toString("hex");
 
-    this.resetToken = crypto
-        .createHash("sha256")
-        .update(token)
-        .digest("hex");
+    this.resetToken = crypto.createHash("sha256").update(token).digest("hex");
 
     this.resetTokenExpired = Date.now() + 10 * 60 * 1000;
 

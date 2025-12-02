@@ -1,6 +1,7 @@
 import { asyncErrorHandler } from "../middlewares/errorMiddleware.js";
 
 import {
+    createUser,
     getAllUsers,
     getUserById,
     updateUser,
@@ -15,6 +16,15 @@ export const getUsersController = asyncErrorHandler(async (req, res) => {
         status: "success",
         results: users.length,
         data: users,
+    });
+});
+
+export const createUserController = asyncErrorHandler(async (req, res) => {
+    const user = await createUser(req.body);
+
+    res.status(200).json({
+        status: "success",
+        data: user,
     });
 });
 
