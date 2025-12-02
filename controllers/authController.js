@@ -119,14 +119,11 @@ export const resetPasswordController = asyncErrorHandler(async (req, res) => {
 
     await user.save();
 
-    const token = createToken(user._id);
 
-    res
-        .cookie("token", token, cookieOptions)
-        .status(200)
+    res.status(200)
         .json({
             status: "success",
-            message: "Password reset successful",
+            message: "Password reset successful, please login again",
             user,
         });
 });
