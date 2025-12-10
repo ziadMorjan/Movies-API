@@ -1,4 +1,4 @@
-import cookieOptions from "../utils/cookieOptions.js";
+import { sendCookieRes } from "../utils/cookies.js";
 import { asyncErrorHandler } from "../middlewares/errorMiddleware.js";
 import {
     createUser,
@@ -47,12 +47,5 @@ export const changePasswordController = asyncErrorHandler(async (req, res) => {
     await changeUserPassword(req.user._id, newPassword);
 
     const token = createToken(req.user._id);
-
-    res.
-        cookie("token", token, cookieOptions)
-        .status(200)
-        .json({
-            status: "success",
-            message: "Password changed successfully",
-        });
+    sendCookieRes(res, token, 200, "success");
 });

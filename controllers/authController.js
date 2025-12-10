@@ -5,10 +5,13 @@ import { asyncErrorHandler } from "../middlewares/errorMiddleware.js";
 import { createToken } from "../utils/JWTs.js";
 import { authenticateUser } from "../services/authService.js";
 import { createUser } from "../services/userService.js";
-import cookieOptions from "../utils/cookieOptions.js";
+import { sendCookieRes } from "../utils/cookies.js";
 import { sendEmail } from "../utils/sendEmail.js";
 import { resetPasswordTemplate } from "../utils/emailTemplates/resetPasswordTemplate.js";
 import { errorLogger } from "../utils/logger.js";
+import { verifyGoogleToken, googleLoginOrSignup } from "../services/googleAuthService.js";
+import { verifyFacebookToken, facebookLoginOrSignup } from "../services/facebookAuthService.js";
+
 
 export const getLoggedInUser = asyncErrorHandler(async (req, res) => {
     if (!req.user) {
@@ -28,13 +31,7 @@ export const signupController = asyncErrorHandler(async (req, res) => {
     const user = await createUser(req.body);
     const token = createToken(user._id);
 
-    res
-        .cookie("token", token, cookieOptions)
-        .status(201)
-        .json({
-            status: "success",
-            data: { user },
-        });
+    sendCookieRes(res, token, 201, "success", { user });
 });
 
 export const loginController = asyncErrorHandler(async (req, res) => {
@@ -42,13 +39,7 @@ export const loginController = asyncErrorHandler(async (req, res) => {
     const user = await authenticateUser(email, password);
     const token = createToken(user._id);
 
-    res
-        .cookie("token", token, cookieOptions)
-        .status(200)
-        .json({
-            status: "success",
-            data: { user },
-        });
+    sendCookieRes(res, token, 200, "success", { user });
 });
 
 export const logoutController = asyncErrorHandler(async (req, res) => {
@@ -71,6 +62,7 @@ export const forgotPasswordController = asyncErrorHandler(async (req, res) => {
     await user.save({ validateBeforeSave: false });
 
     const resetURL = `${process.env.CLIENT_URL}/auth/reset-password/${resetToken}`;
+    console.log(resetURL);
     try {
         await sendEmail({
             to: user.email,
@@ -126,4 +118,36 @@ export const resetPasswordController = asyncErrorHandler(async (req, res) => {
             message: "Password reset successful, please login again",
             user,
         });
+});
+
+export const googleLoginController = asyncErrorHandler(async (req, res) => {
+    const { accessToken } = req.body;
+
+    if (!accessToken) throw new CustomError("Google token is required", 400);
+
+    try {
+        const googleUser = await verifyGoogleToken(accessToken);
+        const user = await googleLoginOrSignup(googleUser);
+        const token = createToken(user._id);
+        sendCookieRes(res, token, 200, "success", user);
+    } catch (err) {
+        errorLogger(err);
+        throw new CustomError("Field to connect to Google.", 500);
+    }
+});
+
+export const facebookLoginController = asyncErrorHandler(async (req, res) => {
+    const { accessToken } = req.body;
+
+    if (!accessToken) throw new CustomError("Facebook access token is required", 400);
+
+    try {
+        const fbUser = await verifyFacebookToken(accessToken);
+        const user = await facebookLoginOrSignup(fbUser);
+        const token = createToken(user._id);
+        sendCookieRes(res, token, 200, "success", user);
+    } catch (err) {
+        errorLogger(err);
+        throw new CustomError("Field to connect to Facebook.", 500);
+    }
 });
