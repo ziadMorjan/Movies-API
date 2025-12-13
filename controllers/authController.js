@@ -121,12 +121,12 @@ export const resetPasswordController = asyncErrorHandler(async (req, res) => {
 });
 
 export const googleLoginController = asyncErrorHandler(async (req, res) => {
-    const { accessToken } = req.body;
+    const { idToken } = req.body;
 
-    if (!accessToken) throw new CustomError("Google token is required", 400);
+    if (!idToken) throw new CustomError("Google token is required", 400);
 
     try {
-        const googleUser = await verifyGoogleToken(accessToken);
+        const googleUser = await verifyGoogleToken(idToken);
         const user = await googleLoginOrSignup(googleUser);
         const token = createToken(user._id);
         sendCookieRes(res, token, 200, "success", user);
