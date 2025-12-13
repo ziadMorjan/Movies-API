@@ -123,31 +123,27 @@ export const resetPasswordController = asyncErrorHandler(async (req, res) => {
 export const googleLoginController = asyncErrorHandler(async (req, res) => {
     const { idToken } = req.body;
 
-    if (!idToken) throw new CustomError("Google token is required", 400);
-
-    try {
-        const googleUser = await verifyGoogleToken(idToken);
-        const user = await googleLoginOrSignup(googleUser);
-        const token = createToken(user._id);
-        sendCookieRes(res, token, 200, "success", user);
-    } catch (err) {
-        errorLogger(err);
-        throw new CustomError("Field to connect to Google.", 500);
+    if (!idToken) {
+        throw new CustomError("Google ID token is required", 400);
     }
+
+    const googleUser = await verifyGoogleToken(idToken);
+    const user = await googleLoginOrSignup(googleUser);
+
+    const token = createToken(user._id);
+    sendCookieRes(res, token, 200, "success", user);
 });
 
 export const facebookLoginController = asyncErrorHandler(async (req, res) => {
     const { accessToken } = req.body;
 
-    if (!accessToken) throw new CustomError("Facebook access token is required", 400);
-
-    try {
-        const fbUser = await verifyFacebookToken(accessToken);
-        const user = await facebookLoginOrSignup(fbUser);
-        const token = createToken(user._id);
-        sendCookieRes(res, token, 200, "success", user);
-    } catch (err) {
-        errorLogger(err);
-        throw new CustomError("Field to connect to Facebook.", 500);
+    if (!accessToken) {
+        throw new CustomError("Facebook access token is required", 400);
     }
+
+    const facebookUser = await verifyFacebookToken(accessToken);
+    const user = await facebookLoginOrSignup(facebookUser);
+
+    const token = createToken(user._id);
+    sendCookieRes(res, token, 200, "success", user);
 });

@@ -23,12 +23,17 @@ const userSchema = new mongoose.Schema(
             default: "user",
         },
 
+        authProvider: {
+            type: String,
+            enum: ["local", "google", "facebook"],
+            default: "local",
+        },
+
         active: { type: Boolean, default: true },
 
         resetToken: String,
         resetTokenExpired: Date,
         passwordChangedAt: Date,
-
         favorites: [
             {
                 item: {

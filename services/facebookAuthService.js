@@ -1,30 +1,66 @@
 import axios from "axios";
+import CustomError from "../utils/CustomError.js";
 import User from "../models/User.js";
 
 export const verifyFacebookToken = async (accessToken) => {
-    const fbUrl = `https://graph.facebook.com/me?fields=id,first_name,last_name,email,picture&access_token=${accessToken}`;
+    try {
+        const { data } = await axios.get(
+            "https://graph.facebook.com/me",
+            {
+                params: {
+                    access_token: accessToken,
+                    fields: "id,name,email,picture",
+                },
+            }
+        );
 
-    const { data } = await axios.get(fbUrl);
+        if (!data.email) {
+            throw new CustomError(
+                "Facebook account does not have an email",
+                400
+            );
+        }
 
-    return {
-        email: data.email,
-        firstName: data.first_name,
-        lastName: data.last_name,
-        photo: data.picture?.data?.url,
-    };
+        const [firstName, ...rest] = data.name.split(" ");
+
+        return {
+            email: data.email,
+            firstName,
+            lastName: rest.join(" ") || "Facebook",
+            photo: data.picture?.data?.url,
+        };
+    } catch (err) {
+        throw new CustomError("Invalid or expired Facebook token", 401);
+    }
 };
 
-export const facebookLoginOrSignup = async (fbUser) => {
-    let user = await User.findOne({ email: fbUser.email });
+export const facebookLoginOrSignup = async (facebookUser) => {
+    let user = await User.findOne({ email: facebookUser.email });
 
     if (!user) {
         user = await User.create({
-            firstName: fbUser.firstName,
-            lastName: fbUser.lastName,
-            email: fbUser.email,
-            photo: fbUser.photo,
-            password: Math.random().toString(36).slice(-12),
+            firstName: facebookUser.firstName,
+            lastName: facebookUser.lastName,
+            email: facebookUser.email,
+            photo: facebookUser.photo,
+            authProvider: "facebook",
         });
+
+        return user;
+    }
+
+    if (user.authProvider === "local") {
+        throw new CustomError(
+            "This email is registered with password login. Please login using email & password.",
+            400
+        );
+    }
+
+    if (user.authProvider !== "facebook") {
+        throw new CustomError(
+            `This account uses ${user.authProvider} login.`,
+            400
+        );
     }
 
     return user;

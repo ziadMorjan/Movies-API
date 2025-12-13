@@ -18,13 +18,14 @@ import {
 } from "../utils/validators/userValidator.js";
 
 import validatorMiddleware from "../middlewares/validatorMiddleware.js";
+import ensureLocalAuth from "../middlewares/ensureLocalAuth.js";
 
 const router = express.Router();
 
 router.use(protect);
 
 router.patch("/update-me", updateMeValidator, validatorMiddleware, updateMeController);
-router.patch("/change-password", changePasswordValidator, validatorMiddleware, changePasswordController);
+router.patch("/change-password", ensureLocalAuth, changePasswordValidator, validatorMiddleware, changePasswordController);
 
 router.use(allowTo("admin"));
 

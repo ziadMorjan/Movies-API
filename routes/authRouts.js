@@ -1,5 +1,7 @@
 import express from "express";
+
 import { protect } from "../middlewares/authMiddleware.js";
+import ensureLocalAuth from "../middlewares/ensureLocalAuth.js";
 
 import {
     forgotPasswordLimiter,
@@ -30,9 +32,9 @@ const router = express.Router();
 
 router.get("/me", protect, getLoggedInUser);
 router.post("/signup", signupValidator, signupController);
-router.post("/login", loginLimiter, loginValidator, loginController);
-router.post("/forget-password", forgotPasswordLimiter, forgotPasswordValidator, forgotPasswordController);
-router.post("/reset-password/:resetToken", resetPasswordValidator, resetPasswordController);
+router.post("/login", ensureLocalAuth, loginLimiter, loginValidator, loginController);
+router.post("/forget-password", ensureLocalAuth, forgotPasswordLimiter, forgotPasswordValidator, forgotPasswordController);
+router.post("/reset-password/:resetToken", ensureLocalAuth, resetPasswordValidator, resetPasswordController);
 router.get("/logout", protect, logoutController);
 router.post("/google-login", googleLoginController);
 router.post("/facebook-login", facebookLoginController);
