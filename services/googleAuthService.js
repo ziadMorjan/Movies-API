@@ -28,6 +28,7 @@ export const googleLoginOrSignup = async (googleUser) => {
             lastName: googleUser.lastName,
             email: googleUser.email,
             photo: googleUser.photo,
+            password: Math.random().toString(36).slice(-12),
         });
     }
 
