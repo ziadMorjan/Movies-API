@@ -1,48 +1,76 @@
 import Series from "../models/Series.js";
-import ApiFeatures from "../utils/apiFeatures.js";
 import CustomError from "../utils/CustomError.js";
+import ApiFeatures from "../utils/apiFeatures.js";
 
+/* CREATE */
 export const createSeries = async (data) => {
-    const series = await Series.create(data);
-    return series;
+    return await Series.create(data);
 };
 
+/* GET ALL */
 export const getAllSeries = async (queryString) => {
-    const totalDocs = await Series.countDocuments();
+    const totalDocs = await Series.countDocuments({ isDeleted: false });
 
-    const apiFeatures = new ApiFeatures(Series.find(), queryString)
+    const apiFeatures = new ApiFeatures(
+        Series.find({ isDeleted: false }),
+        queryString
+    )
         .filter()
         .search(["name", "description"])
         .sort()
         .limitFields()
         .paginate(totalDocs);
 
-    const seriesList = await apiFeatures.query.populate("genres").populate("cast");
+    const series = await apiFeatures.query
+        .populate("genres")
+        .populate("cast");
 
     return {
-        results: seriesList.length,
+        results: series.length,
         pagination: apiFeatures.pagination,
-        data: seriesList,
+        data: series,
     };
 };
 
+/* GET ONE */
 export const getSeriesById = async (id) => {
-    const series = await Series.findById(id)
+    const series = await Series.findOne({
+        _id: id,
+        isDeleted: false,
+    })
         .populate("genres")
-        .populate("cast")
-        .populate("seasons");
-    if (!series) throw new CustomError("Series not found", 404);
+        .populate("cast");
+
+    if (!series)
+        throw new CustomError("Series not found", 404);
+
     return series;
 };
 
+/* UPDATE */
 export const updateSeries = async (id, data) => {
-    const series = await Series.findByIdAndUpdate(id, data, { new: true });
-    if (!series) throw new CustomError("Series not found", 404);
+    const series = await Series.findOneAndUpdate(
+        { _id: id, isDeleted: false },
+        data,
+        { new: true, runValidators: true }
+    );
+
+    if (!series)
+        throw new CustomError("Series not found", 404);
+
     return series;
 };
 
+/* SOFT DELETE */
 export const deleteSeries = async (id) => {
-    const series = await Series.findByIdAndDelete(id);
-    if (!series) throw new CustomError("Series not found", 404);
+    const series = await Series.findOneAndUpdate(
+        { _id: id, isDeleted: false },
+        { isDeleted: true },
+        { new: true }
+    );
+
+    if (!series)
+        throw new CustomError("Series not found", 404);
+
     return series;
 };

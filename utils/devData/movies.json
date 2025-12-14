@@ -1,22 +1,29 @@
 [
   {
     "name": "Inception",
-    "description": "A thief who steals corporate secrets through dream-sharing.",
-    "poster": "inception.jpg",
-    "backdrop": "inception-bg.jpg",
+    "description": "A mind-bending thriller.",
     "duration": 148,
     "releaseYear": 2010,
-    "genres": ["Action", "Sci-Fi", "Thriller"],
-    "cast": ["Leonardo DiCaprio", "Tom Hardy", "Joseph Gordon-Levitt"]
+    "videoUrl": "https://cdn.demo.com/movies/inception.mp4",
+    "genres": ["Sci-Fi", "Action"],
+    "cast": ["Leonardo DiCaprio"]
   },
   {
-    "name": "John Wick",
-    "description": "Legendary hitman comes out of retirement.",
-    "poster": "johnwick.jpg",
-    "backdrop": "johnwick-bg.jpg",
-    "duration": 101,
+    "name": "Interstellar",
+    "description": "Journey beyond the stars.",
+    "duration": 169,
     "releaseYear": 2014,
+    "videoUrl": "https://cdn.demo.com/movies/interstellar.mp4",
+    "genres": ["Sci-Fi", "Drama"],
+    "cast": ["Leonardo DiCaprio"]
+  },
+  {
+    "name": "The Dark Knight",
+    "description": "Batman faces Joker.",
+    "duration": 152,
+    "releaseYear": 2008,
+    "videoUrl": "https://cdn.demo.com/movies/dark-knight.mp4",
     "genres": ["Action", "Crime"],
-    "cast": ["Keanu Reeves", "Ian McShane"]
+    "cast": ["Cillian Murphy"]
   }
 ]

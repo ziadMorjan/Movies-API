@@ -8,7 +8,9 @@ const seriesSchema = new mongoose.Schema(
             trim: true,
         },
 
-        description: String,
+        description: {
+            type: String,
+        },
 
         poster: String,
         backdrop: String,
@@ -26,8 +28,16 @@ const seriesSchema = new mongoose.Schema(
                 ref: "Actor",
             },
         ],
+
+        isDeleted: {
+            type: Boolean,
+            default: false,
+            index: true,
+        },
     },
     { timestamps: true }
 );
+
+seriesSchema.index({ name: 1 }, { unique: true });
 
 export default mongoose.model("Series", seriesSchema);

@@ -1,14 +1,51 @@
 import { asyncErrorHandler } from "../middlewares/errorMiddleware.js";
-
 import {
-    createMovie,
-    getAllMovies,
+    getMovies,
     getMovieById,
+    createMovie,
     updateMovie,
-    deleteMovie
+    deleteMovie,
 } from "../services/movieService.js";
 
-// Create Movie
+export const getMoviesController = asyncErrorHandler(async (req, res) => {
+    const result = await getMovies(req.query);
+
+    // 🔐 hide videoUrl for guests
+    if (!req.user) {
+        result.data = result.data.map(movie => {
+            movie = movie.toObject();
+            delete movie.videoUrl;
+            return movie;
+        });
+    }
+
+    res.status(200).json({
+        status: "success",
+        ...result,
+    });
+});
+
+export const getMovieController = asyncErrorHandler(async (req, res) => {
+    const movie = await getMovieById(req.params.id);
+
+    if (!req.user) {
+        const obj = movie.toObject();
+        delete obj.videoUrl;
+
+        return res.status(200).json({
+            status: "success",
+            data: obj,
+        });
+    }
+
+    res.status(200).json({
+        status: "success",
+        data: movie,
+    });
+});
+
+
+/* ================= CREATE ================= */
 export const createMovieController = asyncErrorHandler(async (req, res) => {
     const movie = await createMovie(req.body);
 
@@ -18,27 +55,7 @@ export const createMovieController = asyncErrorHandler(async (req, res) => {
     });
 });
 
-// Get All
-export const getMoviesController = asyncErrorHandler(async (req, res) => {
-    const result = await getAllMovies(req.query);
-
-    res.status(200).json({
-        status: "success",
-        ...result,
-    });
-});
-
-// Get One
-export const getMovieController = asyncErrorHandler(async (req, res) => {
-    const movie = await getMovieById(req.params.id);
-
-    res.status(200).json({
-        status: "success",
-        data: movie,
-    });
-});
-
-// Update
+/* ================= UPDATE ================= */
 export const updateMovieController = asyncErrorHandler(async (req, res) => {
     const movie = await updateMovie(req.params.id, req.body);
 
@@ -48,9 +65,8 @@ export const updateMovieController = asyncErrorHandler(async (req, res) => {
     });
 });
 
-// Delete
+/* ================= DELETE ================= */
 export const deleteMovieController = asyncErrorHandler(async (req, res) => {
     await deleteMovie(req.params.id);
-
     res.status(204).send();
 });

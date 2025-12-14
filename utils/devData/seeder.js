@@ -14,7 +14,7 @@ import Actor from "../../models/Actor.js";
 import User from "../../models/User.js";
 import { errorLogger } from "../logger.js";
 
-// ESM path fix
+/* ================= ESM PATH FIX ================= */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -22,10 +22,10 @@ dotenv.config({ path: path.join(__dirname, "../../config.env") });
 
 connect(process.env.CON_STR);
 
-// =============== Load JSON files ===============
+/* ================= LOAD JSON ================= */
 
 const readJSON = (file) =>
-    JSON.parse(fs.readFileSync(path.join(__dirname, file)));
+    JSON.parse(fs.readFileSync(path.join(__dirname, file), "utf-8"));
 
 const movies = readJSON("movies.json");
 const seriesList = readJSON("series.json");
@@ -35,79 +35,107 @@ const genresArray = readJSON("genres.json");
 const actorsArray = readJSON("actors.json");
 const users = readJSON("users.json");
 
-// =================================================
-// Helper: Generate maps
-// =================================================
+/* ================= HELPERS ================= */
+
+const toIdMap = (docs, key) =>
+    docs.reduce((acc, doc) => {
+        acc[doc[key]] = doc._id;
+        return acc;
+    }, {});
+
+function ensure(value, message) {
+    if (!value) throw new Error(message);
+    return value;
+}
+
+/* ================= IMPORT DATA ================= */
 
 async function importData() {
     try {
-        console.log("🚀 Importing data...");
+        console.log("[seed] Importing data (existing records will be removed)...");
+        await clearCollections();
 
-        // 1) Insert genres
+        /* ===== GENRES ===== */
         const genreDocs = await Genre.create(
             genresArray.map((g) => ({
-                name_en: g,
-                type: "both"
+                name_en: typeof g === "string" ? g : g.name,
+                type: "both",
             }))
         );
+        const genreMap = toIdMap(genreDocs, "name_en");
 
-        const genreMap = {};
-        genreDocs.forEach((g) => (genreMap[g.name_en] = g._id));
-
-        // 2) Insert actors
+        /* ===== ACTORS ===== */
         const actorDocs = await Actor.create(
-            actorsArray.map((a) => ({ name: a }))
+            actorsArray.map((a) => ({
+                name: typeof a === "string" ? a : a.name,
+            }))
         );
+        const actorMap = toIdMap(actorDocs, "name");
 
-        const actorMap = {};
-        actorDocs.forEach((a) => (actorMap[a.name] = a._id));
-
-        // 3) Insert series (no refs yet)
+        /* ===== SERIES ===== */
         const seriesDocs = await Series.create(
             seriesList.map((s) => ({
                 name: s.name,
                 description: s.description,
                 poster: s.poster,
                 backdrop: s.backdrop,
-                genres: s.genres.map((name) => genreMap[name]),
-                cast: s.cast.map((name) => actorMap[name]),
+                genres: (s.genres || []).map((g) =>
+                    ensure(genreMap[g], `Unknown genre "${g}" for series "${s.name}"`)
+                ),
+                cast: (s.cast || []).map((a) =>
+                    ensure(actorMap[a], `Unknown actor "${a}" for series "${s.name}"`)
+                ),
             }))
         );
+        const seriesMap = toIdMap(seriesDocs, "name");
 
-        const seriesMap = {};
-        seriesDocs.forEach((s) => (seriesMap[s.name] = s._id));
-
-        // 4) Insert seasons (linked to series)
+        /* ===== SEASONS ===== */
         const seasonDocs = await Season.create(
-            seasons.map((s) => ({
-                series: seriesMap[s.series],
-                seasonNumber: s.seasonNumber,
-                poster: s.poster,
-                overview: s.overview,
-            }))
+            seasons.map((s) => {
+                const seriesId = ensure(
+                    seriesMap[s.series],
+                    `Unknown series "${s.series}" for season ${s.seasonNumber}`
+                );
+                return {
+                    series: seriesId,
+                    seasonNumber: s.seasonNumber,
+                    poster: s.poster,
+                    overview: s.overview,
+                };
+            })
         );
-
-        // Build lookup for (seriesName + seasonNumber)
         const seasonLookup = {};
         seasonDocs.forEach((s) => {
-            seasonLookup[`${s.series}-${s.seasonNumber}`] = s._id;
+            seasonLookup[`${String(s.series)}-${s.seasonNumber}`] = s._id;
         });
 
-        // 5) Insert episodes (linked to series + season)
-        const episodeDocs = await Episode.create(
-            episodes.map((ep) => ({
-                series: seriesMap[ep.series],
-                season: seasonLookup[`${seriesMap[ep.series]}-${ep.seasonNumber}`],
-                episodeNumber: ep.episodeNumber,
-                title: ep.title,
-                overview: ep.overview,
-                runtime: ep.runtime,
-                videoUrl: ep.videoUrl,
-            }))
+        /* ===== EPISODES ===== */
+        await Episode.create(
+            episodes.map((ep) => {
+                const seriesId = ensure(
+                    seriesMap[ep.series],
+                    `Unknown series "${ep.series}" for episode "${ep.title}"`
+                );
+                const seasonNumber = ep.season ?? ep.seasonNumber;
+                const seasonId = ensure(
+                    seasonLookup[`${seriesId}-${seasonNumber}`],
+                    `Unknown season ${seasonNumber} for episode "${ep.title}"`
+                );
+
+                return {
+                    series: seriesId,
+                    season: seasonId,
+                    episodeNumber: ep.episodeNumber,
+                    title: ep.title,
+                    overview: ep.overview,
+                    runtime: ep.runtime,
+                    videoUrl: ep.videoUrl,
+                };
+            })
         );
 
-        // 6) Insert movies
-        const movieDocs = await Movie.create(
+        /* ===== MOVIES ===== */
+        await Movie.create(
             movies.map((m) => ({
                 name: m.name,
                 description: m.description,
@@ -115,41 +143,55 @@ async function importData() {
                 releaseYear: m.releaseYear,
                 poster: m.poster,
                 backdrop: m.backdrop,
-                genresRefs: m.genres.map((g) => genreMap[g]),
-                castRefs: m.cast.map((a) => actorMap[a]),
+                videoUrl: m.videoUrl,
+                genresRefs: (m.genres || []).map((g) =>
+                    ensure(genreMap[g], `Unknown genre "${g}" for movie "${m.name}"`)
+                ),
+                castRefs: (m.cast || []).map((a) =>
+                    ensure(actorMap[a], `Unknown actor "${a}" for movie "${m.name}"`)
+                ),
             }))
         );
 
-        // 7) Insert users
+        /* ===== USERS ===== */
         await User.create(users);
 
-        console.log("🎉 All data imported successfully!");
-        process.exit();
+        console.log("[seed] All data imported successfully!");
+        process.exit(0);
     } catch (err) {
-        console.error("❌ Error importing data");
+        console.error("[seed] Error importing data");
         errorLogger(err);
         process.exit(1);
     }
+}
+
+/* ================= DELETE DATA ================= */
+
+async function clearCollections() {
+    await Promise.all([
+        Movie.deleteMany(),
+        Series.deleteMany(),
+        Season.deleteMany(),
+        Episode.deleteMany(),
+        Genre.deleteMany(),
+        Actor.deleteMany(),
+        User.deleteMany(),
+    ]);
 }
 
 async function deleteData() {
     try {
-        await Movie.deleteMany();
-        await Series.deleteMany();
-        await Season.deleteMany();
-        await Episode.deleteMany();
-        await Genre.deleteMany();
-        await Actor.deleteMany();
-        await User.deleteMany();
-
-        console.log("🗑 All data deleted!");
-        process.exit();
+        await clearCollections();
+        console.log("[seed] All data deleted!");
+        process.exit(0);
     } catch (err) {
-        console.error("❌ Error deleting data");
+        console.error("[seed] Error deleting data");
         errorLogger(err);
         process.exit(1);
     }
 }
+
+/* ================= RUN ================= */
 
 if (process.argv[2] === "-i") importData();
 if (process.argv[2] === "-d") deleteData();

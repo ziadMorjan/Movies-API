@@ -1,9 +1,9 @@
 [
-  "Action",
-  "Crime",
-  "Sci-Fi",
-  "Drama",
-  "Fantasy",
-  "Horror",
-  "Thriller"
+  { "name": "Action" },
+  { "name": "Drama" },
+  { "name": "Sci-Fi" },
+  { "name": "Thriller" },
+  { "name": "Crime" },
+  { "name": "Adventure" },
+  { "name": "Fantasy" }
 ]

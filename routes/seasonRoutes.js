@@ -1,29 +1,54 @@
 import express from "express";
+import { protect, allowTo } from "../middlewares/authMiddleware.js";
 import {
-    createSeasonController,
     getSeasonsController,
+    createSeasonController,
     getSeasonController,
     updateSeasonController,
     deleteSeasonController,
 } from "../controllers/seasonController.js";
 
 import {
-    createSeasonValidator,
+    seriesIdValidator,
     seasonIdValidator,
+    createSeasonValidator,
+    updateSeasonValidator,
 } from "../utils/validators/seasonValidator.js";
-import { allowTo, protect } from "../middlewares/authMiddleware.js";
+import episodeRoutes from "./episodeRoutes.js";
 
-const router = express.Router();
+
+const router = express.Router({ mergeParams: true });
+
+router.use("/:seasonId/episodes", episodeRoutes);
 
 router
     .route("/")
-    .get(getSeasonsController)
-    .post(protect, allowTo("admin"), createSeasonValidator, createSeasonController);
+    .get(seriesIdValidator, getSeasonsController)
+    .post(
+        protect,
+        allowTo("admin"),
+        seriesIdValidator,
+        createSeasonValidator,
+        createSeasonController
+    );
 
 router
-    .route("/:id")
-    .get(seasonIdValidator, getSeasonController)
-    .patch(protect, allowTo("admin"), seasonIdValidator, updateSeasonController)
-    .delete(protect, allowTo("admin"), seasonIdValidator, deleteSeasonController);
+    .route("/:seasonId")
+    .get(seriesIdValidator, seasonIdValidator, getSeasonController)
+    .patch(
+        protect,
+        allowTo("admin"),
+        seriesIdValidator,
+        seasonIdValidator,
+        updateSeasonValidator,
+        updateSeasonController
+    )
+    .delete(
+        protect,
+        allowTo("admin"),
+        seriesIdValidator,
+        seasonIdValidator,
+        deleteSeasonController
+    );
 
 export default router;

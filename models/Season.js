@@ -6,17 +6,32 @@ const seasonSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "Series",
             required: true,
+            index: true,
         },
 
         seasonNumber: {
             type: Number,
             required: true,
+            min: 1,
         },
 
-        poster: String,
-        overview: String,
+        poster: {
+            type: String,
+        },
+
+        overview: {
+            type: String,
+        },
+
+        isDeleted: {
+            type: Boolean,
+            default: false,
+            index: true,
+        },
     },
     { timestamps: true }
 );
+
+seasonSchema.index({ series: 1, seasonNumber: 1 }, { unique: true });
 
 export default mongoose.model("Season", seasonSchema);

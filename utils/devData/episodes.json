@@ -1,29 +1,23 @@
 [
   {
     "series": "Breaking Bad",
-    "seasonNumber": 1,
+    "season": 1,
     "episodeNumber": 1,
     "title": "Pilot",
-    "overview": "Walt turns to crime",
-    "runtime": 58,
-    "videoUrl": "ep1.mp4"
+    "videoUrl": "https://cdn.demo.com/episodes/bb-s1-e1.mp4"
   },
   {
     "series": "Breaking Bad",
-    "seasonNumber": 1,
+    "season": 1,
     "episodeNumber": 2,
-    "title": "Cat's in the Bag",
-    "overview": "Body disposal issues",
-    "runtime": 48,
-    "videoUrl": "ep2.mp4"
+    "title": "Cat's in the Bag...",
+    "videoUrl": "https://cdn.demo.com/episodes/bb-s1-e2.mp4"
   },
   {
-    "series": "Stranger Things",
-    "seasonNumber": 1,
+    "series": "The Witcher",
+    "season": 1,
     "episodeNumber": 1,
-    "title": "The Vanishing",
-    "overview": "Will goes missing",
-    "runtime": 52,
-    "videoUrl": "st-ep1.mp4"
+    "title": "The End's Beginning",
+    "videoUrl": "https://cdn.demo.com/episodes/witcher-s1-e1.mp4"
   }
 ]

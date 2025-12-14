@@ -1,11 +1,8 @@
 [
-  "Leonardo DiCaprio",
-  "Tom Hardy",
-  "Joseph Gordon-Levitt",
-  "Keanu Reeves",
-  "Ian McShane",
-  "Bryan Cranston",
-  "Aaron Paul",
-  "Millie Bobby Brown",
-  "Finn Wolfhard"
+  { "name": "Leonardo DiCaprio" },
+  { "name": "Cillian Murphy" },
+  { "name": "Bryan Cranston" },
+  { "name": "Aaron Paul" },
+  { "name": "Henry Cavill" },
+  { "name": "Pedro Pascal" }
 ]

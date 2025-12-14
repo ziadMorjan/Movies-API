@@ -1,16 +1,15 @@
 class ApiFeatures {
-    constructor(mongooseQuery, queryString) {
-        this.query = mongooseQuery;
+    constructor(query, queryString) {
+        this.query = query;
         this.queryString = queryString;
+        this.pagination = {};
     }
 
-    /* 🔍 FILTER */
     filter() {
         const queryObj = { ...this.queryString };
-        const excludedFields = ["page", "sort", "limit", "fields", "keyword"];
+        const excludedFields = ["page", "sort", "limit", "fields", "search"];
         excludedFields.forEach((el) => delete queryObj[el]);
 
-        // Advanced filtering (gte, gt, lte, lt)
         let queryStr = JSON.stringify(queryObj);
         queryStr = queryStr.replace(
             /\b(gte|gt|lte|lt)\b/g,
@@ -21,57 +20,56 @@ class ApiFeatures {
         return this;
     }
 
-    /* 🔍 SEARCH */
-    search(searchFields = []) {
-        if (this.queryString.keyword && searchFields.length) {
-            const regex = new RegExp(this.queryString.keyword, "i");
-
+    search(fields = []) {
+        if (this.queryString.search && fields.length) {
+            const regex = new RegExp(this.queryString.search, "i");
             this.query = this.query.find({
-                $or: searchFields.map((field) => ({
-                    [field]: regex,
-                })),
+                $or: fields.map((field) => ({ [field]: regex })),
             });
         }
         return this;
     }
 
-    /* 🔃 SORT */
     sort() {
         if (this.queryString.sort) {
-            const sortBy = this.queryString.sort.split(",").join(" ");
-            this.query = this.query.sort(sortBy);
+            this.query = this.query.sort(
+                this.queryString.sort.split(",").join(" ")
+            );
         } else {
             this.query = this.query.sort("-createdAt");
         }
         return this;
     }
 
-    /* 🎯 FIELDS LIMITING */
     limitFields() {
         if (this.queryString.fields) {
-            const fields = this.queryString.fields.split(",").join(" ");
-            this.query = this.query.select(fields);
-        } else {
-            this.query = this.query.select("-__v");
+            this.query = this.query.select(
+                this.queryString.fields.split(",").join(" ")
+            );
         }
         return this;
     }
 
-    /* 📄 PAGINATION */
     paginate(totalDocs) {
-        const page = Number(this.queryString.page) || 1;
-        const limit = Number(this.queryString.limit) || 10;
+        const page = parseInt(this.queryString.page, 10) || 1;
+        const limit = parseInt(this.queryString.limit, 10) || 10;
         const skip = (page - 1) * limit;
-
-        this.query = this.query.skip(skip).limit(limit);
 
         this.pagination = {
             page,
             limit,
-            totalPages: Math.ceil(totalDocs / limit),
             totalDocs,
+            totalPages: Math.ceil(totalDocs / limit),
         };
 
+        if (page > 1) {
+            this.pagination.prevPage = page - 1;
+        }
+        if (page < this.pagination.totalPages) {
+            this.pagination.nextPage = page + 1;
+        }
+
+        this.query = this.query.skip(skip).limit(limit);
         return this;
     }
 }

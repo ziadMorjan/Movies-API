@@ -1,18 +1,14 @@
 [
   {
     "name": "Breaking Bad",
-    "description": "Chemistry teacher turns into a drug kingpin",
+    "description": "A chemistry teacher turns criminal.",
     "poster": "bb.jpg",
-    "backdrop": "bb-bg.jpg",
-    "genres": ["Crime", "Drama", "Thriller"],
-    "cast": ["Bryan Cranston", "Aaron Paul"]
+    "genres": ["Drama", "Crime"]
   },
   {
-    "name": "Stranger Things",
-    "description": "Kids vs monsters vs government experiments",
-    "poster": "st.jpg",
-    "backdrop": "st-bg.jpg",
-    "genres": ["Drama", "Fantasy", "Horror"],
-    "cast": ["Millie Bobby Brown", "Finn Wolfhard"]
+    "name": "The Witcher",
+    "description": "A monster hunter's journey.",
+    "poster": "witcher.jpg",
+    "genres": ["Fantasy", "Adventure"]
   }
 ]

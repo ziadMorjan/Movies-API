@@ -1,24 +1,22 @@
 import { asyncErrorHandler } from "../middlewares/errorMiddleware.js";
-
 import {
-    createEpisode,
-    getAllEpisodes,
+    getEpisodes,
     getEpisodeById,
+    createEpisode,
     updateEpisode,
     deleteEpisode,
 } from "../services/episodeService.js";
 
-export const createEpisodeController = asyncErrorHandler(async (req, res) => {
-    const episode = await createEpisode(req.body);
-
-    res.status(201).json({
-        status: "success",
-        data: episode,
-    });
-});
-
 export const getEpisodesController = asyncErrorHandler(async (req, res) => {
-    const result = await getAllEpisodes(req.query);
+    const result = await getEpisodes(req.params.seasonId, req.query);
+
+    if (!req.user) {
+        result.data = result.data.map(ep => {
+            ep = ep.toObject();
+            delete ep.videoUrl;
+            return ep;
+        });
+    }
 
     res.status(200).json({
         status: "success",
@@ -27,7 +25,17 @@ export const getEpisodesController = asyncErrorHandler(async (req, res) => {
 });
 
 export const getEpisodeController = asyncErrorHandler(async (req, res) => {
-    const episode = await getEpisodeById(req.params.id);
+    const episode = await getEpisodeById(req.params.episodeId);
+
+    if (!req.user) {
+        const obj = episode.toObject();
+        delete obj.videoUrl;
+
+        return res.status(200).json({
+            status: "success",
+            data: obj,
+        });
+    }
 
     res.status(200).json({
         status: "success",
@@ -35,8 +43,24 @@ export const getEpisodeController = asyncErrorHandler(async (req, res) => {
     });
 });
 
+
+/* ================= CREATE ================= */
+export const createEpisodeController = asyncErrorHandler(async (req, res) => {
+    const episode = await createEpisode({
+        ...req.body,
+        series: req.params.seriesId,
+        season: req.params.seasonId,
+    });
+
+    res.status(201).json({
+        status: "success",
+        data: episode,
+    });
+});
+
+/* ================= UPDATE ================= */
 export const updateEpisodeController = asyncErrorHandler(async (req, res) => {
-    const episode = await updateEpisode(req.params.id, req.body);
+    const episode = await updateEpisode(req.params.episodeId, req.body);
 
     res.status(200).json({
         status: "success",
@@ -44,8 +68,9 @@ export const updateEpisodeController = asyncErrorHandler(async (req, res) => {
     });
 });
 
+/* ================= DELETE ================= */
 export const deleteEpisodeController = asyncErrorHandler(async (req, res) => {
-    await deleteEpisode(req.params.id);
+    await deleteEpisode(req.params.episodeId);
 
     res.status(204).send();
 });

@@ -1,31 +1,48 @@
 import express from "express";
-
+import { protect, allowTo } from "../middlewares/authMiddleware.js";
 import {
-    createMovieController,
     getMoviesController,
     getMovieController,
+    createMovieController,
     updateMovieController,
-    deleteMovieController
+    deleteMovieController,
 } from "../controllers/moviesController.js";
 
 import {
     createMovieValidator,
-    movieIdValidator
+    updateMovieValidator,
+    movieIdValidator,
 } from "../utils/validators/moviesValidator.js";
-
-import { allowTo, protect } from "../middlewares/authMiddleware.js";
+import { optionalProtect } from "../middlewares/optionalProtect .js";
 
 const router = express.Router();
 
+
 router
     .route("/")
-    .get(getMoviesController)
-    .post(protect, allowTo("admin"), createMovieValidator, createMovieController);
+    .get(optionalProtect, getMoviesController)
+    .post(
+        protect,
+        allowTo("admin"),
+        createMovieValidator,
+        createMovieController
+    );
 
 router
     .route("/:id")
-    .get(movieIdValidator, getMovieController)
-    .patch(protect, allowTo("admin"), movieIdValidator, updateMovieController)
-    .delete(protect, allowTo("admin"), movieIdValidator, deleteMovieController);
+    .get(optionalProtect, movieIdValidator, getMovieController)
+    .patch(
+        protect,
+        allowTo("admin"),
+        movieIdValidator,
+        updateMovieValidator,
+        updateMovieController
+    )
+    .delete(
+        protect,
+        allowTo("admin"),
+        movieIdValidator,
+        deleteMovieController
+    );
 
 export default router;

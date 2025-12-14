@@ -16,8 +16,15 @@ const movieSchema = new mongoose.Schema(
         poster: String,
         backdrop: String,
 
-        duration: Number,
-        releaseYear: Number,
+        duration: {
+            type: Number,
+            min: 1,
+        },
+
+        releaseYear: {
+            type: Number,
+            min: 1900,
+        },
 
         genresRefs: [
             {
@@ -32,8 +39,22 @@ const movieSchema = new mongoose.Schema(
                 ref: "Actor",
             },
         ],
+
+        /** 🎥 Full movie video */
+        videoUrl: {
+            type: String,
+            required: true,
+        },
+
+        isDeleted: {
+            type: Boolean,
+            default: false,
+            index: true,
+        },
     },
     { timestamps: true }
 );
+
+movieSchema.index({ name: 1 }, { unique: true });
 
 export default mongoose.model("Movie", movieSchema);

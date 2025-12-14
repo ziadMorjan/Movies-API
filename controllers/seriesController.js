@@ -1,5 +1,4 @@
 import { asyncErrorHandler } from "../middlewares/errorMiddleware.js";
-
 import {
     createSeries,
     getAllSeries,
@@ -8,6 +7,19 @@ import {
     deleteSeries,
 } from "../services/seriesService.js";
 
+/* GET ALL */
+export const getSeriesController = asyncErrorHandler(async (req, res) => {
+    const result = await getAllSeries(req.query);
+
+    res.status(200).json({
+        status: "success",
+        results: result.results,
+        pagination: result.pagination,
+        data: result.data,
+    });
+});
+
+/* CREATE */
 export const createSeriesController = asyncErrorHandler(async (req, res) => {
     const series = await createSeries(req.body);
 
@@ -17,26 +29,17 @@ export const createSeriesController = asyncErrorHandler(async (req, res) => {
     });
 });
 
-export const getSeriesController = asyncErrorHandler(async (req, res) => {
-    const result = await getAllSeries(req.query);
+/* GET ONE */
+export const getSeriesControllerById = asyncErrorHandler(async (req, res) => {
+    const series = await getSeriesById(req.params.id);
 
     res.status(200).json({
         status: "success",
-        ...result,
+        data: series,
     });
 });
 
-export const getSingleSeriesController = asyncErrorHandler(
-    async (req, res) => {
-        const series = await getSeriesById(req.params.id);
-
-        res.status(200).json({
-            status: "success",
-            data: series,
-        });
-    }
-);
-
+/* UPDATE */
 export const updateSeriesController = asyncErrorHandler(async (req, res) => {
     const series = await updateSeries(req.params.id, req.body);
 
@@ -46,8 +49,8 @@ export const updateSeriesController = asyncErrorHandler(async (req, res) => {
     });
 });
 
+/* DELETE */
 export const deleteSeriesController = asyncErrorHandler(async (req, res) => {
     await deleteSeries(req.params.id);
-
     res.status(204).send();
 });
