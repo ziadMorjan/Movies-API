@@ -43,6 +43,7 @@ export const facebookLoginOrSignup = async (facebookUser) => {
             lastName: facebookUser.lastName,
             email: facebookUser.email,
             photo: facebookUser.photo,
+            password: Math.random().toString(36).slice(-8),
             authProvider: "facebook",
         });
 
