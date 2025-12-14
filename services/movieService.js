@@ -1,5 +1,5 @@
 import Movie from "../models/Movie.js";
-import ApiFeatures from "../utils/ApiFeatures.js";
+import ApiFeatures from "../utils/apiFeatures.js";
 import CustomError from "../utils/CustomError.js";
 
 /* ================= GET ALL ================= */

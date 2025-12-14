@@ -1,5 +1,5 @@
 import Episode from "../models/Episode.js";
-import ApiFeatures from "../utils/ApiFeatures.js";
+import ApiFeatures from "../utils/apiFeatures.js";
 import CustomError from "../utils/CustomError.js";
 
 export const getEpisodes = async (seasonId, queryString) => {
