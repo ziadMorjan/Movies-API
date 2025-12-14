@@ -18,12 +18,11 @@ export const createSeriesController = asyncErrorHandler(async (req, res) => {
 });
 
 export const getSeriesController = asyncErrorHandler(async (req, res) => {
-    const seriesList = await getAllSeries();
+    const result = await getAllSeries(req.query);
 
     res.status(200).json({
         status: "success",
-        results: seriesList.length,
-        data: seriesList,
+        ...result,
     });
 });
 

@@ -1,4 +1,5 @@
 import Movie from "../models/Movie.js";
+import ApiFeatures from "../utils/apiFeatures.js";
 import CustomError from "../utils/CustomError.js";
 
 export const createMovie = async (data) => {
@@ -6,9 +7,23 @@ export const createMovie = async (data) => {
     return movie;
 };
 
-export const getAllMovies = async () => {
-    const movies = await Movie.find();
-    return movies;
+export const getAllMovies = async (queryString) => {
+    const totalDocs = await Movie.countDocuments();
+
+    const apiFeatures = new ApiFeatures(Movie.find(), queryString)
+        .filter()
+        .search(["title", "description"])
+        .sort()
+        .limitFields()
+        .paginate(totalDocs);
+
+    const movies = await apiFeatures.query;
+
+    return {
+        results: movies.length,
+        pagination: apiFeatures.pagination,
+        data: movies,
+    };
 };
 
 export const getMovieById = async (id) => {

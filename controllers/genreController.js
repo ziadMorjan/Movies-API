@@ -18,12 +18,11 @@ export const createGenreController = asyncErrorHandler(async (req, res) => {
 });
 
 export const getGenresController = asyncErrorHandler(async (req, res) => {
-    const genres = await getAllGenres();
+    const result = await getAllGenres(req.query);
 
     res.status(200).json({
         status: "success",
-        results: genres.length,
-        data: genres,
+        ...result,
     });
 });
 

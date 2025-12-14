@@ -1,4 +1,5 @@
 import Actor from "../models/Actor.js";
+import ApiFeatures from "../utils/apiFeatures.js";
 import CustomError from "../utils/CustomError.js";
 
 export const createActor = async (data) => {
@@ -6,9 +7,23 @@ export const createActor = async (data) => {
     return actor;
 };
 
-export const getAllActors = async () => {
-    const actors = await Actor.find();
-    return actors;
+export const getAllActors = async (queryString) => {
+    const totalDocs = await Actor.countDocuments();
+
+    const apiFeatures = new ApiFeatures(Actor.find(), queryString)
+        .filter()
+        .search(["name"])
+        .sort()
+        .limitFields()
+        .paginate(totalDocs);
+
+    const actors = await apiFeatures.query;
+
+    return {
+        results: actors.length,
+        pagination: apiFeatures.pagination,
+        data: actors,
+    };
 };
 
 export const getActorById = async (id) => {

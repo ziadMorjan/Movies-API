@@ -18,12 +18,11 @@ export const createEpisodeController = asyncErrorHandler(async (req, res) => {
 });
 
 export const getEpisodesController = asyncErrorHandler(async (req, res) => {
-    const episodes = await getAllEpisodes();
+    const result = await getAllEpisodes(req.query);
 
     res.status(200).json({
         status: "success",
-        results: episodes.length,
-        data: episodes,
+        ...result,
     });
 });
 

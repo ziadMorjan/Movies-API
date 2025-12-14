@@ -18,12 +18,11 @@ export const createActorController = asyncErrorHandler(async (req, res) => {
 });
 
 export const getActorsController = asyncErrorHandler(async (req, res) => {
-    const actors = await getAllActors();
+    const result = await getAllActors(req.query);
 
     res.status(200).json({
         status: "success",
-        results: actors.length,
-        data: actors,
+        ...result,
     });
 });
 

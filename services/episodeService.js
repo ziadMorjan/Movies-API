@@ -1,4 +1,5 @@
 import Episode from "../models/Episode.js";
+import ApiFeatures from "../utils/apiFeatures.js";
 import CustomError from "../utils/CustomError.js";
 
 export const createEpisode = async (data) => {
@@ -6,11 +7,25 @@ export const createEpisode = async (data) => {
     return episode;
 };
 
-export const getAllEpisodes = async () => {
-    const episodes = await Episode.find()
+export const getAllEpisodes = async (queryString) => {
+    const totalDocs = await Episode.countDocuments();
+
+    const apiFeatures = new ApiFeatures(Episode.find(), queryString)
+        .filter()
+        .search(["title", "overview"])
+        .sort()
+        .limitFields()
+        .paginate(totalDocs);
+
+    const episodes = await apiFeatures.query
         .populate("series")
         .populate("season");
-    return episodes;
+
+    return {
+        results: episodes.length,
+        pagination: apiFeatures.pagination,
+        data: episodes,
+    };
 };
 
 export const getEpisodeById = async (id) => {

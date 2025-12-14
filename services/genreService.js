@@ -1,4 +1,5 @@
 import Genre from "../models/Genre.js";
+import ApiFeatures from "../utils/apiFeatures.js";
 import CustomError from "../utils/CustomError.js";
 
 export const createGenre = async (data) => {
@@ -6,9 +7,23 @@ export const createGenre = async (data) => {
     return genre;
 };
 
-export const getAllGenres = async () => {
-    const genres = await Genre.find();
-    return genres;
+export const getAllGenres = async (queryString) => {
+    const totalDocs = await Genre.countDocuments();
+
+    const apiFeatures = new ApiFeatures(Genre.find(), queryString)
+        .filter()
+        .search(["name_en"])
+        .sort()
+        .limitFields()
+        .paginate(totalDocs);
+
+    const genres = await apiFeatures.query;
+
+    return {
+        results: genres.length,
+        pagination: apiFeatures.pagination,
+        data: genres,
+    };
 };
 
 export const getGenreById = async (id) => {

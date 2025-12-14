@@ -20,12 +20,11 @@ export const createMovieController = asyncErrorHandler(async (req, res) => {
 
 // Get All
 export const getMoviesController = asyncErrorHandler(async (req, res) => {
-    const movies = await getAllMovies();
+    const result = await getAllMovies(req.query);
 
     res.status(200).json({
         status: "success",
-        results: movies.length,
-        data: movies,
+        ...result,
     });
 });
 
