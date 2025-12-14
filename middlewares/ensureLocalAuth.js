@@ -3,7 +3,7 @@ import User from "../models/User.js";
 import { asyncErrorHandler } from "./errorMiddleware.js";
 
 const ensureLocalAuth = asyncErrorHandler(async (req, res, next) => {
-    const email = req.body.email;
+    const email = req.body.email || req.query.email || req.params.email || (req.user && req.user.email);
 
     if (!email) {
         throw new CustomError("Email is required", 400);
