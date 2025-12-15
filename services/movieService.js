@@ -11,7 +11,7 @@ export const getMovies = async (queryString) => {
 
     const apiFeatures = new ApiFeatures(Movie.find(filter), queryString)
         .filter()
-        .search(["name", "description"])
+        .search(["name"])
         .sort()
         .limitFields()
         .paginate(totalDocs);

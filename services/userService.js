@@ -1,6 +1,5 @@
 import User from "../models/User.js";
 import CustomError from "../utils/CustomError.js";
-import bcrypt from "bcryptjs";
 
 // Create user
 export const createUser = async (data) => {

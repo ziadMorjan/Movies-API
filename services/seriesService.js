@@ -16,7 +16,7 @@ export const getAllSeries = async (queryString) => {
         queryString
     )
         .filter()
-        .search(["name", "description"])
+        .search(["name"])
         .sort()
         .limitFields()
         .paginate(totalDocs);

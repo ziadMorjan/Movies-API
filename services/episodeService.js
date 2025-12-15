@@ -9,7 +9,7 @@ export const getEpisodes = async (seasonId, queryString) => {
 
     const apiFeatures = new ApiFeatures(Episode.find(filter), queryString)
         .filter()
-        .search(["title", "overview"])
+        .search(["title"])
         .sort()
         .limitFields()
         .paginate(totalDocs);
