@@ -10,6 +10,7 @@ export const getMovies = async (queryString) => {
     const totalDocs = await Movie.countDocuments(filter);
 
     const apiFeatures = new ApiFeatures(Movie.find(filter), queryString)
+        .filter()
         .search(["name", "description"])
         .sort()
         .limitFields()
@@ -25,7 +26,10 @@ export const getMovies = async (queryString) => {
 };
 
 export const getMovieById = async (id) => {
-    const movie = await Movie.findOne({ _id: id, isDeleted: false });
+    const movie = await Movie.findOne({ _id: id, isDeleted: false })
+        .populate("genresRefs")
+        .populate("castRefs");
+    ;
     if (!movie) throw new CustomError("Movie not found", 404);
     return movie;
 };

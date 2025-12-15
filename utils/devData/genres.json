@@ -1,9 +1,83 @@
 [
-  { "name": "Action" },
-  { "name": "Drama" },
-  { "name": "Sci-Fi" },
-  { "name": "Thriller" },
-  { "name": "Crime" },
-  { "name": "Adventure" },
-  { "name": "Fantasy" }
+    {
+        "name": "Action"
+    },
+    {
+        "name": "Adventure"
+    },
+    {
+        "name": "Animation"
+    },
+    {
+        "name": "Comedy"
+    },
+    {
+        "name": "Crime"
+    },
+    {
+        "name": "Documentary"
+    },
+    {
+        "name": "Drama"
+    },
+    {
+        "name": "Family"
+    },
+    {
+        "name": "Fantasy"
+    },
+    {
+        "name": "History"
+    },
+    {
+        "name": "Horror"
+    },
+    {
+        "name": "Music"
+    },
+    {
+        "name": "Mystery"
+    },
+    {
+        "name": "Romance"
+    },
+    {
+        "name": "Science Fiction"
+    },
+    {
+        "name": "TV Movie"
+    },
+    {
+        "name": "Thriller"
+    },
+    {
+        "name": "War"
+    },
+    {
+        "name": "Western"
+    },
+    {
+        "name": "Action & Adventure"
+    },
+    {
+        "name": "Kids"
+    },
+    {
+        "name": "News"
+    },
+    {
+        "name": "Reality"
+    },
+    {
+        "name": "Sci-Fi & Fantasy"
+    },
+    {
+        "name": "Soap"
+    },
+    {
+        "name": "Talk"
+    },
+    {
+        "name": "War & Politics"
+    }
 ]

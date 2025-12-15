@@ -22,8 +22,6 @@ export const getAllSeries = async (queryString) => {
         .paginate(totalDocs);
 
     const series = await apiFeatures.query
-        .populate("genres")
-        .populate("cast");
 
     return {
         results: series.length,

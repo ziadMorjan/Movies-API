@@ -8,6 +8,7 @@ export const getEpisodes = async (seasonId, queryString) => {
     const totalDocs = await Episode.countDocuments(filter);
 
     const apiFeatures = new ApiFeatures(Episode.find(filter), queryString)
+        .filter()
         .search(["title", "overview"])
         .sort()
         .limitFields()

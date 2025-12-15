@@ -1,14 +1,918 @@
 [
   {
+    "name": "Stranger Things",
+    "description": "When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl.",
+    "poster": "https://image.tmdb.org/t/p/w500/cVxVGwHce6xnW8UaVUggaPXbmoE.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/56v2KjBlU4XaOv9rVYEQypROD7P.jpg",
+    "genres": [
+      "Sci-Fi & Fantasy",
+      "Mystery",
+      "Action & Adventure"
+    ],
+    "cast": [
+      "Millie Bobby Brown",
+      "Winona Ryder",
+      "David Harbour",
+      "Finn Wolfhard",
+      "Gaten Matarazzo",
+      "Caleb McLaughlin",
+      "Noah Schnapp",
+      "Sadie Sink"
+    ]
+  },
+  {
+    "name": "IT: Welcome to Derry",
+    "description": "In 1962, a couple with their son move to Derry, Maine just as a young boy disappears. With their arrival, terrible things begin to happen in the town.",
+    "poster": "https://image.tmdb.org/t/p/w500/nyy3BITeIjviv6PFIXtqvc8i6xi.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/2fOKVDoc2O3eZmBZesWPuE5kgPN.jpg",
+    "genres": [
+      "Drama",
+      "Mystery"
+    ],
+    "cast": [
+      "Taylour Paige",
+      "Jovan Adepo",
+      "Matilda Lawler",
+      "Amanda Christine",
+      "Clara Stack",
+      "Chris Chalk",
+      "James Remar",
+      "Stephen Rider"
+    ]
+  },
+  {
+    "name": "Spartacus: House of Ashur",
+    "description": "In a world where he survived the events of Spartacus (2010), Ashur clawed his way to power, owning the same ludus that once owned him. Allying with a fierce gladiatrix, Ashur ignites a new kind of spectacle that offends the elite.",
+    "poster": "https://image.tmdb.org/t/p/w500/vNByuzy60v31nmUVPMA8oAtneUK.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/ckPbbcJOcL43mJBrROTMrtOBIYK.jpg",
+    "genres": [
+      "Drama",
+      "Action & Adventure"
+    ],
+    "cast": [
+      "Nick E. Tarabay",
+      "Graham McTavish",
+      "Tenika Davis",
+      "Jamaica Vaughan",
+      "Ivana Baquero",
+      "Jordi Webber",
+      "Claudia Black",
+      "India Shaw-Smith"
+    ]
+  },
+  {
+    "name": "Man vs Baby",
+    "description": "As Christmas approaches, a blundering-all-the-way dad juggles housesitting a posh London penthouse with an unexpected pickle: caring for a lost baby.",
+    "poster": "https://image.tmdb.org/t/p/w500/x7UZVTEr26H5yCSVQoKTeBdvUvg.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/lSffVt0etoSLyl2hsTREdJ1CnQ1.jpg",
+    "genres": [
+      "Comedy",
+      "Family"
+    ],
+    "cast": [
+      "Rowan Atkinson"
+    ]
+  },
+  {
+    "name": "Supernatural",
+    "description": "When they were boys, Sam and Dean Winchester lost their mother to a mysterious and demonic supernatural force. Subsequently, their father raised them to be soldiers. He taught them about the paranormal evil that lives in the dark corners and on the back roads of America ... and he taught them how to kill it. Now, the Winchester brothers crisscross the country in their '67 Chevy Impala, battling every kind of supernatural threat they encounter along the way. ",
+    "poster": "https://image.tmdb.org/t/p/w500/u40gJarLPlIkwouKlzGdobQOV9k.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/ro0tlgnsco4SwbdAgmscLkSlMSL.jpg",
+    "genres": [
+      "Drama",
+      "Mystery",
+      "Sci-Fi & Fantasy"
+    ],
+    "cast": [
+      "Jared Padalecki",
+      "Jensen Ackles",
+      "Misha Collins"
+    ]
+  },
+  {
+    "name": "Grey's Anatomy",
+    "description": "Follows the personal and professional lives of a group of doctors at Seattle’s Grey Sloan Memorial Hospital.",
+    "poster": "https://image.tmdb.org/t/p/w500/hjJkrLXhWvGHpLeLBDFznpBTY1S.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/jP0Rhj9OTPDAwQlHQwOLFDdeE8t.jpg",
+    "genres": [
+      "Drama"
+    ],
+    "cast": [
+      "Ellen Pompeo",
+      "Chandra Wilson",
+      "James Pickens Jr.",
+      "Kevin McKidd",
+      "Caterina Scorsone",
+      "Camilla Luddington",
+      "Kim Raver",
+      "Jason George"
+    ]
+  },
+  {
+    "name": "Law & Order: Special Victims Unit",
+    "description": "In the criminal justice system, sexually-based offenses are considered especially heinous. In New York City, the dedicated detectives who investigate these vicious felonies are members of an elite squad known as the Special Victims Unit. These are their stories.",
+    "poster": "https://image.tmdb.org/t/p/w500/iofokHZoUB4Qhik4PflvJl8TT6a.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/2wgk47yrb2WnXAdSBLFX9EiU882.jpg",
+    "genres": [
+      "Crime",
+      "Drama",
+      "Mystery"
+    ],
+    "cast": [
+      "Mariska Hargitay",
+      "Ice-T",
+      "Kelli Giddish",
+      "Peter Scanavino",
+      "Aimé Donna Kelly",
+      "Kevin Kane"
+    ]
+  },
+  {
+    "name": "The Simpsons",
+    "description": "Set in Springfield, the average American town, the show focuses on the antics and everyday adventures of the Simpson family; Homer, Marge, Bart, Lisa and Maggie, as well as a virtual cast of thousands. Since the beginning, the series has been a pop culture icon, attracting hundreds of celebrities to guest star. The show has also made name for itself in its fearless satirical take on politics, media and American life in general.",
+    "poster": "https://image.tmdb.org/t/p/w500/uWpG7GqfKGQqX4YMAo3nv5OrglV.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/jvTeRgjFsp66xj8SWxhr7O2J4ud.jpg",
+    "genres": [
+      "Family",
+      "Animation",
+      "Comedy"
+    ],
+    "cast": [
+      "Dan Castellaneta",
+      "Julie Kavner",
+      "Nancy Cartwright",
+      "Yeardley Smith",
+      "Hank Azaria",
+      "Harry Shearer"
+    ]
+  },
+  {
+    "name": "Game of Thrones",
+    "description": "Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond.",
+    "poster": "https://image.tmdb.org/t/p/w500/1XS1oqL89opfnbLl8WnZY1O1uJx.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/zZqpAXxVSBtxV9qPBcscfXBcL2w.jpg",
+    "genres": [
+      "Sci-Fi & Fantasy",
+      "Drama",
+      "Action & Adventure"
+    ],
+    "cast": [
+      "Peter Dinklage",
+      "Kit Harington",
+      "Nikolaj Coster-Waldau",
+      "Lena Headey",
+      "Emilia Clarke",
+      "Liam Cunningham",
+      "Maisie Williams",
+      "Isaac Hempstead Wright"
+    ]
+  },
+  {
+    "name": "Record of Ragnarok",
+    "description": "Before eradicating humankind from the world, the gods give them one last chance to prove themselves worthy of survival. Let the Ragnarok battles begin.",
+    "poster": "https://image.tmdb.org/t/p/w500/t6GEKms3JgLhC6pXjFHhDvPP65y.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/6pSkqecoNsxSA467Z28uhVDrjXo.jpg",
+    "genres": [
+      "Action & Adventure",
+      "Animation",
+      "Sci-Fi & Fantasy"
+    ],
+    "cast": [
+      "Miyuki Sawashiro",
+      "Tomoyo Kurosawa",
+      "Wataru Takagi",
+      "Junichi Suwabe",
+      "Tomokazu Seki",
+      "Soma Saito",
+      "Kazuhiro Yamaji",
+      "Takahiro Sakurai"
+    ]
+  },
+  {
+    "name": "The Rookie",
+    "description": "Starting over isn't easy, especially for small-town guy John Nolan who, after a life-altering incident, is pursuing his dream of being an LAPD officer. As the force's oldest rookie, he’s met with skepticism from some higher-ups who see him as just a walking midlife crisis.",
+    "poster": "https://image.tmdb.org/t/p/w500/bL1mwXDnH5fCxqc4S2n40hoVyoe.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/2m1Mu0xPj4SikiqkaolTRUcNtWH.jpg",
+    "genres": [
+      "Crime",
+      "Drama",
+      "Comedy"
+    ],
+    "cast": [
+      "Nathan Fillion",
+      "Melissa O'Neil",
+      "Eric Winter",
+      "Alyssa Diaz",
+      "Mekia Cox",
+      "Richard T. Jones"
+    ]
+  },
+  {
+    "name": "NCIS",
+    "description": "From murder and espionage to terrorism and stolen submarines, a team of special agents investigates any crime that has any connection to Navy and Marine Corps personnel, regardless of rank or position.",
+    "poster": "https://image.tmdb.org/t/p/w500/mBcu8d6x6zB1el3MPNl7cZQEQ31.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/c1aBrG5s5xFa6Tbnihu2Hhj4t2q.jpg",
+    "genres": [
+      "Crime",
+      "Drama",
+      "Action & Adventure"
+    ],
+    "cast": [
+      "Sean Murray",
+      "Wilmer Valderrama",
+      "Katrina Law",
+      "Brian Dietzen",
+      "Rocky Carroll",
+      "Diona Reasonover",
+      "Gary Cole"
+    ]
+  },
+  {
+    "name": "The War Between the Land and the Sea",
+    "description": "When a fearsome and ancient species emerges from the ocean, dramatically revealing themselves to humanity, an international crisis is triggered. With the entire population at risk, UNIT step into action as the land and sea wage war.",
+    "poster": "https://image.tmdb.org/t/p/w500/4wDU61HtpXbcwpgCy1xnodxKRYN.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/zU8BfAE8pqlQSaiCCrZIWJm4YTM.jpg",
+    "genres": [
+      "Sci-Fi & Fantasy",
+      "Drama"
+    ],
+    "cast": [
+      "Russell Tovey",
+      "Gugu Mbatha-Raw",
+      "Jemma Redgrave",
+      "Alexander Devrient",
+      "Ruth Madeley",
+      "Colin McFarlane",
+      "Waseem Mirza",
+      "Manpreet Bachu"
+    ]
+  },
+  {
+    "name": "Dexter",
+    "description": "Dexter Morgan, a blood spatter pattern analyst for the Miami Metro Police also leads a secret life as a serial killer, hunting down criminals who have slipped through the cracks of justice.",
+    "poster": "https://image.tmdb.org/t/p/w500/q8dWfc4JwQuv3HayIZeO84jAXED.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/aSGSxGMTP893DPMCvMl9AdnEICE.jpg",
+    "genres": [
+      "Crime",
+      "Drama",
+      "Mystery"
+    ],
+    "cast": [
+      "Michael C. Hall",
+      "Jennifer Carpenter",
+      "Geoff Pierson",
+      "David Zayas",
+      "James Remar",
+      "Aimee Garcia",
+      "Desmond Harrington",
+      "C. S. Lee"
+    ]
+  },
+  {
+    "name": "The Boys from Brazil: Rise of the Bolsonaros",
+    "description": "The remarkable rise of one of the world’s most controversial leaders, Jair Bolsonaro, from obscurity to the presidency of Brazil.",
+    "poster": "https://image.tmdb.org/t/p/w500/sZXernSnVWGhlrAhDUDtdg3fuZn.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/kgXhHyQVPbWrmE2hvjrnLsGZBMs.jpg",
+    "genres": [
+      "Documentary"
+    ],
+    "cast": []
+  },
+  {
+    "name": "Pluribus",
+    "description": "The most miserable person on Earth must save the world from happiness.",
+    "poster": "https://image.tmdb.org/t/p/w500/nrM2xFUfKJJEmZzd5d7kohT2G0C.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/ulm1ex4JFYJByyaPyqTr47MFyEQ.jpg",
+    "genres": [
+      "Drama",
+      "Sci-Fi & Fantasy"
+    ],
+    "cast": [
+      "Rhea Seehorn",
+      "Karolina Wydra",
+      "Carlos Manuel Vesga"
+    ]
+  },
+  {
     "name": "Breaking Bad",
-    "description": "A chemistry teacher turns criminal.",
-    "poster": "bb.jpg",
-    "genres": ["Drama", "Crime"]
+    "description": "Walter White, a New Mexico chemistry teacher, is diagnosed with Stage III cancer and given a prognosis of only two years left to live. He becomes filled with a sense of fearlessness and an unrelenting desire to secure his family's financial future at any cost as he enters the dangerous world of drugs and crime.",
+    "poster": "https://image.tmdb.org/t/p/w500/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/tsRy63Mu5cu8etL1X7ZLyf7UP1M.jpg",
+    "genres": [
+      "Drama",
+      "Crime"
+    ],
+    "cast": [
+      "Bryan Cranston",
+      "Aaron Paul",
+      "Anna Gunn",
+      "RJ Mitte",
+      "Dean Norris",
+      "Betsy Brandt",
+      "Bob Odenkirk",
+      "Jonathan Banks"
+    ]
+  },
+  {
+    "name": "Shameless",
+    "description": "Chicagoan Frank Gallagher is the proud single dad of six smart, industrious, independent kids, who without him would be... perhaps better off. When Frank's not at the bar spending what little money they have, he's passed out on the floor. But the kids have found ways to grow up in spite of him. They may not be like any family you know, but they make no apologies for being exactly who they are.",
+    "poster": "https://image.tmdb.org/t/p/w500/ifo31fMWLmyOVpdak9K0kY4jldQ.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/5s9XHTB9SLPdg3mNU6BlSLnZ9Qq.jpg",
+    "genres": [
+      "Drama",
+      "Comedy"
+    ],
+    "cast": [
+      "William H. Macy",
+      "Jeremy Allen White",
+      "Ethan Cutkosky",
+      "Shanola Hampton",
+      "Steve Howey",
+      "Emma Kenney",
+      "Christian Isaiah",
+      "Cameron Monaghan"
+    ]
+  },
+  {
+    "name": "Law & Order",
+    "description": "In cases ripped from the headlines, police investigate serious and often deadly crimes, weighing the evidence and questioning the suspects until someone is taken into custody. The district attorney's office then builds a case to convict the perpetrator by proving the person guilty beyond a reasonable doubt. Working together, these expert teams navigate all sides of the complex criminal justice system to make New York a safer place.",
+    "poster": "https://image.tmdb.org/t/p/w500/haJ9eHytVO3H3JooMJG1DiWwDNm.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/tc7canPSAn2X14hYi6Rl3gZm1o4.jpg",
+    "genres": [
+      "Crime",
+      "Drama"
+    ],
+    "cast": [
+      "Reid Scott",
+      "David Ajala",
+      "Maura Tierney",
+      "Tony Goldwyn",
+      "Hugh Dancy",
+      "Odelya Halevi"
+    ]
+  },
+  {
+    "name": "The Blacklist",
+    "description": "Raymond \"Red\" Reddington, one of the FBI's most wanted fugitives, surrenders in person at FBI Headquarters in Washington, D.C. He claims that he and the FBI have the same interests: bringing down dangerous criminals and terrorists. In the last two decades, he's made a list of criminals and terrorists that matter the most but the FBI cannot find because it does not know they exist. Reddington calls this \"The Blacklist\". Reddington will co-operate, but insists that he will speak only to Elizabeth Keen, a rookie FBI profiler.",
+    "poster": "https://image.tmdb.org/t/p/w500/4HTfd1PhgFUenJxVuBDNdLmdr0c.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/2eIlCirgcvEwmCSYh2wDfz5Sxvz.jpg",
+    "genres": [
+      "Drama",
+      "Crime",
+      "Mystery"
+    ],
+    "cast": [
+      "James Spader",
+      "Diego Klattenhoff",
+      "Hisham Tawfiq",
+      "Anya Banerjee",
+      "Harry Lennix"
+    ]
+  },
+  {
+    "name": "House",
+    "description": "Dr. Gregory House, a drug-addicted, unconventional, misanthropic medical genius, leads a team of diagnosticians at the fictional Princeton–Plainsboro Teaching Hospital in New Jersey.",
+    "poster": "https://image.tmdb.org/t/p/w500/3Cz7ySOQJmqiuTdrc6CY0r65yDI.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/r0Q6eeN9L1ORL9QsV0Sg8ZV3vnv.jpg",
+    "genres": [
+      "Drama",
+      "Comedy",
+      "Mystery"
+    ],
+    "cast": [
+      "Hugh Laurie",
+      "Robert Sean Leonard",
+      "Omar Epps",
+      "Jesse Spencer",
+      "Odette Annable",
+      "Peter Jacobson",
+      "Charlyne Yi"
+    ]
+  },
+  {
+    "name": "Family Guy",
+    "description": "Sick, twisted, politically incorrect and Freakin' Sweet animated series featuring the adventures of the dysfunctional Griffin family. Bumbling Peter and long-suffering Lois have three kids. Stewie (a brilliant but sadistic baby bent on killing his mother and taking over the world), Meg (the oldest, and is the most unpopular girl in town) and Chris (the middle kid, he's not very bright but has a passion for movies). The final member of the family is Brian - a talking dog and much more than a pet, he keeps Stewie in check whilst sipping Martinis and sorting through his own life issues.",
+    "poster": "https://image.tmdb.org/t/p/w500/8o8kiBkWFK3gVytHdyzEWUBXVfK.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/lgGZ2ysbRyAOi2VgIZpp6k8qILj.jpg",
+    "genres": [
+      "Animation",
+      "Comedy"
+    ],
+    "cast": [
+      "Seth MacFarlane",
+      "Alex Borstein",
+      "Mila Kunis",
+      "Seth Green",
+      "Patrick Warburton",
+      "Arif Zahir"
+    ]
+  },
+  {
+    "name": "Esref Ruya",
+    "description": "As a child, Eşref fell in love from afar with a girl he called “Rüya” and spent years searching for her, only to become a powerful mafia figure along the way. Meanwhile, Nisan, an idealistic musician, finds herself in grave danger after performing at a wedding held at Eşref’s hotel. Eşref falls for Nisan, unaware that she is both the long-lost Rüya he has been chasing for years and a police informant. Trapped in a whirlwind of love, betrayal, and power struggles, Eşref is forced into a brutal reckoning—both with his criminal empire and his own emotions.",
+    "poster": "https://image.tmdb.org/t/p/w500/eeFYLgiRFaG3bKx1qLyC7YOdHJz.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/opxjwbFSadDgVmZtrLTlWJsUxrB.jpg",
+    "genres": [
+      "Drama"
+    ],
+    "cast": [
+      "Çağatay Ulusoy",
+      "Demet Özdemir",
+      "Büşra Develi",
+      "Necip Memili",
+      "Ahmet Rıfat Şungar",
+      "Tolga Tekin",
+      "Görkem Sevindik",
+      "Ceren Benderlioğlu"
+    ]
+  },
+  {
+    "name": "Criminal Minds",
+    "description": "An elite team of FBI profilers analyze the country's most twisted criminal minds, anticipating their next moves before they strike again. The Behavioral Analysis Unit's most experienced agent is David Rossi, a founding member of the BAU who returns to help the team solve new cases.",
+    "poster": "https://image.tmdb.org/t/p/w500/gigxjNnACiXAfrwoMox5WJFgc0I.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/w88B4ooZ2LSYPw5107JOkjvI8PI.jpg",
+    "genres": [
+      "Crime",
+      "Drama",
+      "Mystery"
+    ],
+    "cast": [
+      "Joe Mantegna",
+      "Paget Brewster",
+      "Adam Rodriguez",
+      "Kirsten Vangsness",
+      "A. J. Cook",
+      "Aisha Tyler",
+      "Zach Gilford",
+      "Ryan-James Hatanaka"
+    ]
   },
   {
     "name": "The Witcher",
-    "description": "A monster hunter's journey.",
-    "poster": "witcher.jpg",
-    "genres": ["Fantasy", "Adventure"]
+    "description": "Geralt of Rivia, a mutated monster-hunter for hire, journeys toward his destiny in a turbulent world where people often prove more wicked than beasts.",
+    "poster": "https://image.tmdb.org/t/p/w500/AoGsDM02UVt0npBA8OvpDcZbaMi.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/foGkPxpw9h8zln81j63mix5B7m8.jpg",
+    "genres": [
+      "Drama",
+      "Action & Adventure"
+    ],
+    "cast": [
+      "Liam Hemsworth",
+      "Anya Chalotra",
+      "Freya Allan",
+      "Joey Batey",
+      "Eamon Farren",
+      "Mimî M. Khayisa",
+      "Anna Shaffer",
+      "Mahesh Jadu"
+    ]
+  },
+  {
+    "name": "Friends",
+    "description": "Six young people from New York City, on their own and struggling to survive in the real world, find the companionship, comfort and support they get from each other to be the perfect antidote to the pressures of life.",
+    "poster": "https://image.tmdb.org/t/p/w500/f496cm9enuEsZkSPzCwnTESEK5s.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/wGI8MPfv23B80AF5Yrg1Ss2mVCp.jpg",
+    "genres": [
+      "Comedy"
+    ],
+    "cast": [
+      "Jennifer Aniston",
+      "Courteney Cox",
+      "Lisa Kudrow",
+      "Matt LeBlanc",
+      "Matthew Perry",
+      "David Schwimmer"
+    ]
+  },
+  {
+    "name": "Homeland",
+    "description": "CIA officer Carrie Mathison is tops in her field despite being bipolar, which makes her volatile and unpredictable. With the help of her long-time mentor Saul Berenson, Carrie fearlessly risks everything, including her personal well-being and even sanity, at every turn.",
+    "poster": "https://image.tmdb.org/t/p/w500/6GAvS2e6VIRsms9FpVt33PsCoEW.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/391ixi0wVbFtFLQnOy8ZncWv2io.jpg",
+    "genres": [
+      "Drama",
+      "War & Politics",
+      "Crime"
+    ],
+    "cast": [
+      "Claire Danes",
+      "Mandy Patinkin",
+      "Maury Sterling",
+      "Numan Acar",
+      "Nimrat Kaur",
+      "Linus Roache",
+      "Costa Ronin"
+    ]
+  },
+  {
+    "name": "Midsomer Murders",
+    "description": "The peacefulness of the Midsomer community is shattered by violent crimes, suspects are placed under suspicion, and it is up to a veteran DCI and his young sergeant to calmly and diligently eliminate the innocent and ruthlessly pursue the guilty. ",
+    "poster": "https://image.tmdb.org/t/p/w500/31wojXBSLT6LYTUMyc6BiyXqUyP.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/qVmgq1KXBp6BF2EqYPPaUG9iUGy.jpg",
+    "genres": [
+      "Crime",
+      "Drama",
+      "Mystery"
+    ],
+    "cast": [
+      "Neil Dudgeon",
+      "Nick Hendrix",
+      "Fiona Dolman",
+      "Annette Badland"
+    ]
+  },
+  {
+    "name": "One-Punch Man",
+    "description": "The most powerful superhero in the world can kill anyone with one blow. But nothing can challenge him, so he struggles with ennui and depression.",
+    "poster": "https://image.tmdb.org/t/p/w500/dT10AxJIXVvRwFAew4tt2RhzJrD.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/s0w8JbuNNxL1YgaHeDWih12C3jG.jpg",
+    "genres": [
+      "Animation",
+      "Comedy",
+      "Action & Adventure",
+      "Sci-Fi & Fantasy"
+    ],
+    "cast": [
+      "Makoto Furukawa"
+    ]
+  },
+  {
+    "name": "The Daily Show",
+    "description": "The World's Fakest News Team tackle the biggest stories in news, politics and pop culture.",
+    "poster": "https://image.tmdb.org/t/p/w500/ixcfyK7it6FjRM36Te4OdblAq4X.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/qLMfcvdCcCGD2BNLH8b6ZCBuO7D.jpg",
+    "genres": [
+      "News",
+      "Comedy"
+    ],
+    "cast": []
+  },
+  {
+    "name": "Speed and Love",
+    "description": "After her parents' divorce, Jiang Mu reunites with her adopted brother Jin Chao, now a hardened young man living a dangerous life in Thailand. Despite their growing distance, Jiang Mu's unwavering love helps bridge the gap between them, leading to a journey of healing and redemption as they fight to rebuild their bond and face their struggles together.",
+    "poster": "https://image.tmdb.org/t/p/w500/x1pblSVT4xtiZMN0sjn0ql5NMuA.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/bMH8FwXLo7zSJBL9ff9tWBcGOP1.jpg",
+    "genres": [
+      "Drama"
+    ],
+    "cast": [
+      "Yu Shuxin",
+      "He Yu",
+      "Sun Meilin",
+      "Li Ao",
+      "Luan Yuanhui",
+      "Li Feiyang",
+      "Zhuang Yuan"
+    ]
+  },
+  {
+    "name": "The Flash",
+    "description": "After being struck by lightning, CSI investigator Barry Allen awakens from a nine-month coma to discover he has been  granted the gift of super speed.  Teaming up with S.T.A.R. Labs, Barry takes on the persona of The Flash, the Fastest  Man Alive, to protect his city.",
+    "poster": "https://image.tmdb.org/t/p/w500/yZevl2vHQgmosfwUdVNzviIfaWS.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/gFkHcIh7iE5G0oVOgpmY8ONQjhl.jpg",
+    "genres": [
+      "Drama",
+      "Sci-Fi & Fantasy"
+    ],
+    "cast": [
+      "Grant Gustin",
+      "Candice Patton",
+      "Danielle Panabaker",
+      "Danielle Nicolet",
+      "Kayla Compton",
+      "Brandon McKnight",
+      "Jon Cor"
+    ]
+  },
+  {
+    "name": "The Mentalist",
+    "description": "Patrick Jane, a former celebrity psychic medium, uses his razor sharp skills of observation and expertise at \"reading\" people to solve serious crimes with the California Bureau of Investigation.",
+    "poster": "https://image.tmdb.org/t/p/w500/acYXu4KaDj1NIkMgObnhe4C4a0T.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/q3pCsNvJ7CmdJUz2sJEEUY3pOPC.jpg",
+    "genres": [
+      "Crime",
+      "Drama",
+      "Mystery"
+    ],
+    "cast": [
+      "Simon Baker",
+      "Robin Tunney",
+      "Tim Kang",
+      "Rockmond Dunbar",
+      "Joe Adler",
+      "Josie Loren"
+    ]
+  },
+  {
+    "name": "Wednesday",
+    "description": "Smart, sarcastic and a little dead inside, Wednesday Addams investigates twisted mysteries while making new friends — and foes — at Nevermore Academy.",
+    "poster": "https://image.tmdb.org/t/p/w500/36xXlhEpQqVVPuiZhfoQuaY4OlA.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/iHSwvRVsRyxpX7FE7GbviaDvgGZ.jpg",
+    "genres": [
+      "Sci-Fi & Fantasy",
+      "Mystery",
+      "Comedy"
+    ],
+    "cast": [
+      "Jenna Ortega",
+      "Steve Buscemi",
+      "Emma Myers",
+      "Hunter Doohan",
+      "Joy Sunday",
+      "Moosa Mostafa",
+      "Georgie Farmer",
+      "Isaac Ordonez"
+    ]
+  },
+  {
+    "name": "Spartacus",
+    "description": "Torn from his homeland and the woman he loves, Spartacus is condemned to the brutal world of the arena where blood and death are primetime entertainment.",
+    "poster": "https://image.tmdb.org/t/p/w500/c2GKN4VHCj1dnjFMANRpGkCVBae.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/1vhKauCQAq32u53X8n9qI896e6.jpg",
+    "genres": [
+      "Drama"
+    ],
+    "cast": [
+      "Liam McIntyre",
+      "Manu Bennett",
+      "Dustin Clare",
+      "Cynthia Addai-Robinson",
+      "Jaime Murray",
+      "Ellen Hollman",
+      "Luna Rioumina",
+      "Marisa Ramirez"
+    ]
+  },
+  {
+    "name": "Vikings",
+    "description": "The adventures of Ragnar Lothbrok, the greatest hero of his age. The series tells the sagas of Ragnar's band of Viking brothers and his family, as he rises to become King of the Viking tribes. As well as being a fearless warrior, Ragnar embodies the Norse traditions of devotion to the gods. Legend has it that he was a direct descendant of Odin, the god of war and warriors.",
+    "poster": "https://image.tmdb.org/t/p/w500/bQLrHIRNEkE3PdIWQrZHynQZazu.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/lHe8iwM4Cdm6RSEiara4PN8ZcBd.jpg",
+    "genres": [
+      "Action & Adventure",
+      "Drama",
+      "War & Politics"
+    ],
+    "cast": [
+      "Alex Høgh Andersen",
+      "Jordan Patrick Smith",
+      "Marco Ilsø",
+      "Peter Franzén",
+      "Georgia Hirst",
+      "Danila Kozlovsky"
+    ]
+  },
+  {
+    "name": "Percy Jackson and the Olympians",
+    "description": "Percy Jackson is on a dangerous quest. Outrunning monsters and outwitting gods, he must journey across America to return Zeus's master bolt and stop an all-out war. With the help of his friends Annabeth and Grover, Percy's journey will lead him closer to the answers he seeks: how to fit into a world where he feels out of place, and who he's destined to be.",
+    "poster": "https://image.tmdb.org/t/p/w500/40eFcTzZier3DWLqldsP5VHxeoD.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/danN2NzJTMouaBEkDWTnyDjDxUt.jpg",
+    "genres": [
+      "Action & Adventure",
+      "Sci-Fi & Fantasy",
+      "Drama",
+      "Family"
+    ],
+    "cast": [
+      "Walker Scobell",
+      "Leah Sava Jeffries",
+      "Aryan Simhadri",
+      "Charlie Bushnell",
+      "Dior Goodjohn",
+      "Daniel Diemer",
+      "Beatrice Kitsos",
+      "Timothy Simons"
+    ]
+  },
+  {
+    "name": "The Boys",
+    "description": "A group of vigilantes known informally as “The Boys” set out to take down corrupt superheroes with no more than blue-collar grit and a willingness to fight dirty.",
+    "poster": "https://image.tmdb.org/t/p/w500/2zmTngn1tYC1AvfnrFLhxeD82hz.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/7cqKGQMnNabzOpi7qaIgZvQ7NGV.jpg",
+    "genres": [
+      "Sci-Fi & Fantasy",
+      "Action & Adventure"
+    ],
+    "cast": [
+      "Karl Urban",
+      "Jack Quaid",
+      "Antony Starr",
+      "Erin Moriarty",
+      "Jessie T. Usher",
+      "Laz Alonso",
+      "Chace Crawford",
+      "Tomer Capone"
+    ]
+  },
+  {
+    "name": "The Walking Dead",
+    "description": "Sheriff's deputy Rick Grimes awakens from a coma to find a post-apocalyptic world dominated by flesh-eating zombies. He sets out to find his family and encounters many other survivors along the way.",
+    "poster": "https://image.tmdb.org/t/p/w500/ng3cMtxYKt1OSQYqFlnKWnVsqNO.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/rAOjnEFTuNysY7bot8zonhImGMh.jpg",
+    "genres": [
+      "Action & Adventure",
+      "Drama",
+      "Sci-Fi & Fantasy"
+    ],
+    "cast": [
+      "Lauren Cohan",
+      "Norman Reedus",
+      "Jeffrey Dean Morgan",
+      "Melissa McBride",
+      "Christian Serratos",
+      "Seth Gilliam",
+      "Ross Marquand",
+      "Josh McDermitt"
+    ]
+  },
+  {
+    "name": "Tulsa King",
+    "description": "New York mafia capo Dwight \"The General\" Manfredi is released from prison after 25 years and exiled by his boss to set up shop in Tulsa, Oklahoma. Realizing that his mob family may not have his best interests in mind, Dwight slowly builds a crew.",
+    "poster": "https://image.tmdb.org/t/p/w500/rOYLWCdAifpUtPlTf1WHxyaxeMt.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/mNHRGO1gFpR2CYZdANe72kcKq7G.jpg",
+    "genres": [
+      "Crime",
+      "Drama",
+      "Comedy"
+    ],
+    "cast": [
+      "Sylvester Stallone",
+      "Martin Starr",
+      "Jay Will",
+      "Annabella Sciorra",
+      "Neal McDonough",
+      "Frank Grillo",
+      "Garrett Hedlund",
+      "Dana Delany"
+    ]
+  },
+  {
+    "name": "Modern Family",
+    "description": "The Pritchett-Dunphy-Tucker clan is a wonderfully large and blended family. They give us an honest and often hilarious look into the sometimes warm, sometimes twisted, embrace of the modern family.",
+    "poster": "https://image.tmdb.org/t/p/w500/k5Qg5rgPoKdh3yTJJrLtyoyYGwC.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/nO7EzksrBzlNpAg5rgv8HzaBIkx.jpg",
+    "genres": [
+      "Comedy"
+    ],
+    "cast": [
+      "Ed O'Neill",
+      "Sofía Vergara",
+      "Julie Bowen",
+      "Ty Burrell",
+      "Jesse Tyler Ferguson",
+      "Eric Stonestreet",
+      "Sarah Hyland",
+      "Ariel Winter"
+    ]
+  },
+  {
+    "name": "Bones",
+    "description": "Dr. Temperance Brennan and her colleagues at the Jeffersonian's Medico-Legal Lab assist Special Agent Seeley Booth with murder investigations when the remains are so badly decomposed, burned or destroyed that the standard identification methods are useless.",
+    "poster": "https://image.tmdb.org/t/p/w500/eyTu5c8LniVciRZIOSHTvvkkgJa.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/4AXxajuAz9tHAOe6h5zDg8z1X2s.jpg",
+    "genres": [
+      "Crime",
+      "Drama"
+    ],
+    "cast": [
+      "Emily Deschanel",
+      "David Boreanaz",
+      "John Boyd",
+      "Michaela Conlin",
+      "Tamara Taylor",
+      "T.J. Thyne"
+    ]
+  },
+  {
+    "name": "The Vampire Diaries",
+    "description": "The story of two vampire brothers obsessed with the same girl, who bears a striking resemblance to the beautiful but ruthless vampire they knew and loved in 1864.",
+    "poster": "https://image.tmdb.org/t/p/w500/b3vl6wV1W8PBezFfntKTrhrehCY.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/cJYLon9ejKJV7ua03ab8Tj9u067.jpg",
+    "genres": [
+      "Drama",
+      "Sci-Fi & Fantasy"
+    ],
+    "cast": [
+      "Paul Wesley",
+      "Ian Somerhalder",
+      "Kat Graham",
+      "Candice King",
+      "Zach Roerig",
+      "Michael Malarkey",
+      "Matthew Davis"
+    ]
+  },
+  {
+    "name": "Suits",
+    "description": "While running from a drug deal gone bad, Mike Ross, a brilliant young college-dropout, slips into a job interview with one of New York City's best legal closers, Harvey Specter. Tired of cookie-cutter law school grads, Harvey takes a gamble by hiring Mike on the spot after he recognizes his raw talent and photographic memory.",
+    "poster": "https://image.tmdb.org/t/p/w500/vQiryp6LioFxQThywxbC6TuoDjy.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/or0E36KfzJYZwqXeiCfm1JgepKF.jpg",
+    "genres": [
+      "Drama"
+    ],
+    "cast": [
+      "Gabriel Macht",
+      "Rick Hoffman",
+      "Sarah Rafferty",
+      "Amanda Schull",
+      "Dulé Hill",
+      "Katherine Heigl"
+    ]
+  },
+  {
+    "name": "CSI: Crime Scene Investigation",
+    "description": "A Las Vegas team of forensic investigators are trained to solve criminal cases by scouring the crime scene, collecting irrefutable evidence and finding the missing pieces that solve the mystery.",
+    "poster": "https://image.tmdb.org/t/p/w500/i5hmoRjHNWady4AtAGICTUXknKH.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/cvlLBcQWpO9X21jDHhgPJnE2aVq.jpg",
+    "genres": [
+      "Crime",
+      "Drama",
+      "Mystery"
+    ],
+    "cast": [
+      "Ted Danson",
+      "George Eads",
+      "Jorja Fox",
+      "Eric Szmanda",
+      "Robert David Hall",
+      "Wallace Langham",
+      "Jon Wellner",
+      "Elisabeth Harnois"
+    ]
+  },
+  {
+    "name": "Lucifer",
+    "description": "Bored and unhappy as the Lord of Hell, Lucifer Morningstar abandoned his throne and retired to Los Angeles, where he has teamed up with LAPD detective Chloe Decker to take down criminals. But the longer he's away from the underworld, the greater the threat that the worst of humanity could escape.",
+    "poster": "https://image.tmdb.org/t/p/w500/ekZobS8isE6mA53RAiGDG93hBxL.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/ncftkNAjIz2PBbUMY7T0CHVJP8d.jpg",
+    "genres": [
+      "Crime",
+      "Sci-Fi & Fantasy"
+    ],
+    "cast": [
+      "Tom Ellis",
+      "Lauren German",
+      "Kevin Alejandro",
+      "D. B. Woodside",
+      "Lesley-Ann Brandt",
+      "Aimee Garcia",
+      "Rachael Harris",
+      "Brianna Hildebrand"
+    ]
+  },
+  {
+    "name": "Golden Boy",
+    "description": "A young girl is forced to marry a rich groom. The groom is not only rich, but also allows himself to live without any restrictions or obligations. Will married life change his habits? And how will such a man be accepted by a good-hearted wife?",
+    "poster": "https://image.tmdb.org/t/p/w500/yTHaFClgAktpHwlAJzZGftep2ok.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/vDqCoaMU5FUAuUs0EvL4OAUCxJk.jpg",
+    "genres": [
+      "Family",
+      "Drama"
+    ],
+    "cast": [
+      "Afra Saraçoğlu",
+      "Mert Ramazan Demir",
+      "Çetin Tekindor",
+      "Şerif Sezer",
+      "Gülçin Santırcıoğlu",
+      "Emre Altuğ",
+      "Gözde Kansu",
+      "Beril Pozam"
+    ]
+  },
+  {
+    "name": "The Tonight Show Starring Jimmy Fallon",
+    "description": "After Jay Leno's second retirement from the program, Jimmy Fallon stepped in as his permanent replacement. After 42 years in Los Angeles the program was brought back to New York.",
+    "poster": "https://image.tmdb.org/t/p/w500/1N4o5PmmqhlVDrcdJ2RlCFWbLGX.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/7VO04TtL1jIT6XOPs9u4jdB8KaB.jpg",
+    "genres": [
+      "Comedy",
+      "Talk"
+    ],
+    "cast": [
+      "Jimmy Fallon",
+      "Steve Higgins"
+    ]
+  },
+  {
+    "name": "Dinastía Casillas",
+    "description": "",
+    "poster": "https://image.tmdb.org/t/p/w500/xbBJBKssJr85OzAJNSuWdkh5p4v.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/b4D9I3nz4Iya8Pd566PpOvz9q6O.jpg",
+    "genres": [
+      "Drama",
+      "Action & Adventure",
+      "Mystery"
+    ],
+    "cast": [
+      "Iván Arana",
+      "Isabella Castillo",
+      "Maria Fernanda Yepes",
+      "Raúl Méndez",
+      "Gonzalo Vega Jr.",
+      "Plutarco Haza",
+      "Ximena Rubio",
+      "Wendy de los Cobos"
+    ]
   }
 ]

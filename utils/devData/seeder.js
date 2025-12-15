@@ -55,26 +55,61 @@ async function importData() {
         console.log("[seed] Importing data (existing records will be removed)...");
         await clearCollections();
 
+        const dedupeByName = (items) => {
+            const seen = new Set();
+            const result = [];
+            items.forEach((item) => {
+                const name = item.name;
+                if (!name || seen.has(name)) return;
+                seen.add(name);
+                result.push(item);
+            });
+            return result;
+        };
+
         /* ===== GENRES ===== */
+        const genreNames = new Set();
+        const addGenre = (g) => {
+            const name = typeof g === "string" ? g : g?.name;
+            if (name) genreNames.add(name);
+        };
+        genresArray.forEach(addGenre);
+        movies.forEach((m) => (m.genres || []).forEach(addGenre));
+        seriesList.forEach((s) => (s.genres || []).forEach(addGenre));
+
         const genreDocs = await Genre.create(
-            genresArray.map((g) => ({
-                name_en: typeof g === "string" ? g : g.name,
+            [...genreNames].map((name) => ({
+                name_en: name,
                 type: "both",
             }))
         );
         const genreMap = toIdMap(genreDocs, "name_en");
 
         /* ===== ACTORS ===== */
-        const actorDocs = await Actor.create(
-            actorsArray.map((a) => ({
-                name: typeof a === "string" ? a : a.name,
-            }))
-        );
+        const actorsByName = new Map();
+        actorsArray.forEach((a) => {
+            const name = typeof a === "string" ? a : a?.name;
+            if (!name) return;
+            actorsByName.set(name, {
+                name,
+                profilePath: a.profilePath || null,
+                tmdbId: a.tmdbId || null,
+                popularity: a.popularity || null,
+            });
+        });
+        const addActorName = (name) => {
+            if (name && !actorsByName.has(name)) actorsByName.set(name, { name });
+        };
+        movies.forEach((m) => (m.cast || []).forEach(addActorName));
+        seriesList.forEach((s) => (s.cast || []).forEach(addActorName));
+
+        const actorDocs = await Actor.create([...actorsByName.values()]);
         const actorMap = toIdMap(actorDocs, "name");
 
         /* ===== SERIES ===== */
+        const uniqueSeries = dedupeByName(seriesList);
         const seriesDocs = await Series.create(
-            seriesList.map((s) => ({
+            uniqueSeries.map((s) => ({
                 name: s.name,
                 description: s.description,
                 poster: s.poster,
@@ -90,57 +125,100 @@ async function importData() {
         const seriesMap = toIdMap(seriesDocs, "name");
 
         /* ===== SEASONS ===== */
-        const seasonDocs = await Season.create(
-            seasons.map((s) => {
-                const seriesId = ensure(
-                    seriesMap[s.series],
-                    `Unknown series "${s.series}" for season ${s.seasonNumber}`
-                );
-                return {
-                    series: seriesId,
-                    seasonNumber: s.seasonNumber,
-                    poster: s.poster,
-                    overview: s.overview,
-                };
-            })
-        );
+        const validSeasons = seasons.filter((s) => {
+            const seasonNumber = s.seasonNumber ?? s.season;
+            return seasonNumber && seasonNumber >= 1;
+        });
+        let skippedSeasons = seasons.length - validSeasons.length;
+
+        const seasonPayload = [];
+        const seenSeasons = new Set();
+        validSeasons.forEach((s) => {
+            const seriesId = seriesMap[s.series];
+            if (!seriesId) {
+                skippedSeasons += 1;
+                return;
+            }
+            const seasonNumber = s.seasonNumber ?? s.season;
+            const key = `${seriesId}-${seasonNumber}`;
+            if (seenSeasons.has(key)) {
+                skippedSeasons += 1;
+                return;
+            }
+            seenSeasons.add(key);
+            seasonPayload.push({
+                series: seriesId,
+                seasonNumber,
+                poster: s.poster,
+                overview: s.overview,
+            });
+        });
+
+        const seasonDocs = await Season.create(seasonPayload);
         const seasonLookup = {};
         seasonDocs.forEach((s) => {
             seasonLookup[`${String(s.series)}-${s.seasonNumber}`] = s._id;
         });
 
         /* ===== EPISODES ===== */
-        await Episode.create(
-            episodes.map((ep) => {
-                const seriesId = ensure(
-                    seriesMap[ep.series],
-                    `Unknown series "${ep.series}" for episode "${ep.title}"`
-                );
-                const seasonNumber = ep.season ?? ep.seasonNumber;
-                const seasonId = ensure(
-                    seasonLookup[`${seriesId}-${seasonNumber}`],
-                    `Unknown season ${seasonNumber} for episode "${ep.title}"`
-                );
+        const episodePayload = [];
+        let skippedEpisodes = 0;
+        const seenEpisodes = new Set();
+        episodes.forEach((ep) => {
+            const seriesId = seriesMap[ep.series];
+            const seasonNumber = ep.season ?? ep.seasonNumber;
+            const hasRequiredFields =
+                ep.episodeNumber && ep.episodeNumber >= 1 && ep.title && ep.videoUrl;
+            if (!seriesId || !seasonNumber || seasonNumber < 1 || !hasRequiredFields) {
+                skippedEpisodes += 1;
+                return;
+            }
+            const seasonId = seasonLookup[`${seriesId}-${seasonNumber}`];
+            if (!seasonId) {
+                skippedEpisodes += 1;
+                return;
+            }
+            const epKey = `${seasonId}-${ep.episodeNumber}`;
+            if (seenEpisodes.has(epKey)) {
+                skippedEpisodes += 1;
+                return;
+            }
+            seenEpisodes.add(epKey);
 
-                return {
-                    series: seriesId,
-                    season: seasonId,
-                    episodeNumber: ep.episodeNumber,
-                    title: ep.title,
-                    overview: ep.overview,
-                    runtime: ep.runtime,
-                    videoUrl: ep.videoUrl,
-                };
-            })
-        );
+            episodePayload.push({
+                series: seriesId,
+                season: seasonId,
+                episodeNumber: ep.episodeNumber,
+                title: ep.title,
+                overview: ep.overview,
+                runtime: ep.runtime && ep.runtime > 0 ? ep.runtime : undefined,
+                videoUrl: ep.videoUrl,
+            });
+        });
+        await Episode.create(episodePayload);
 
         /* ===== MOVIES ===== */
-        await Movie.create(
-            movies.map((m) => ({
+        const moviePayload = [];
+        let skippedMovies = 0;
+        const seenMovies = new Set();
+        movies.forEach((m) => {
+            if (seenMovies.has(m.name)) {
+                skippedMovies += 1;
+                return;
+            }
+            if (!m.name || !m.description || !m.videoUrl) {
+                skippedMovies += 1;
+                return;
+            }
+            const releaseYear =
+                m.releaseYear && m.releaseYear >= 1900 ? m.releaseYear : undefined;
+            const duration = m.duration && m.duration > 0 ? m.duration : undefined;
+            seenMovies.add(m.name);
+            moviePayload.push({
                 name: m.name,
                 description: m.description,
-                duration: m.duration,
-                releaseYear: m.releaseYear,
+                duration,
+                releaseYear,
                 poster: m.poster,
                 backdrop: m.backdrop,
                 videoUrl: m.videoUrl,
@@ -150,12 +228,18 @@ async function importData() {
                 castRefs: (m.cast || []).map((a) =>
                     ensure(actorMap[a], `Unknown actor "${a}" for movie "${m.name}"`)
                 ),
-            }))
-        );
+            });
+        });
+        await Movie.create(moviePayload);
 
         /* ===== USERS ===== */
         await User.create(users);
 
+        if (skippedMovies > 0 || skippedSeasons > 0 || skippedEpisodes > 0) {
+            console.log(
+                `[seed] Completed with skips - movies: ${skippedMovies}, seasons: ${skippedSeasons}, episodes: ${skippedEpisodes}`
+            );
+        }
         console.log("[seed] All data imported successfully!");
         process.exit(0);
     } catch (err) {
