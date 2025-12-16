@@ -39,7 +39,6 @@ export const deleteUserController = asyncErrorHandler(async (req, res) => {
 export const updateMeController = asyncErrorHandler(async (req, res) => {
     if (req.file) {
         req.body.photo = req.file.path;
-        console.log(req.file);
     }
     const user = await updateMe(req.user._id, req.body);
     res.status(200).json({ status: "success", data: user });
