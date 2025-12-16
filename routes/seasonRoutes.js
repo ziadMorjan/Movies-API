@@ -15,6 +15,7 @@ import {
     updateSeasonValidator,
 } from "../utils/validators/seasonValidator.js";
 import episodeRoutes from "./episodeRoutes.js";
+import { uploadImage } from "../middlewares/uploadMiddleware.js";
 
 
 const router = express.Router({ mergeParams: true });
@@ -27,6 +28,7 @@ router
     .post(
         protect,
         allowTo("admin"),
+        uploadImage.single("poster"),
         seriesIdValidator,
         createSeasonValidator,
         createSeasonController

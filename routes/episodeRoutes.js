@@ -16,6 +16,7 @@ import {
     updateEpisodeValidator,
 } from "../utils/validators/episodeValidator.js";
 import { optionalProtect } from "../middlewares/optionalProtect .js";
+import { uploadVideo } from "../middlewares/uploadMiddleware.js";
 
 const router = express.Router({ mergeParams: true });
 
@@ -25,6 +26,7 @@ router
     .post(
         protect,
         allowTo("admin"),
+        uploadVideo.single("video"),
         seriesIdValidator,
         seasonIdValidator,
         createEpisodeValidator,

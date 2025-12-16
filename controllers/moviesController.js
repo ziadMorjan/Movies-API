@@ -47,6 +47,15 @@ export const getMovieController = asyncErrorHandler(async (req, res) => {
 
 /* ================= CREATE ================= */
 export const createMovieController = asyncErrorHandler(async (req, res) => {
+    if (req.files?.poster)
+        req.body.poster = req.files.poster[0].path;
+
+    if (req.files?.backdrop)
+        req.body.backdrop = req.files.backdrop[0].path;
+
+    if (req.file)
+        req.body.videoUrl = req.file.path;
+
     const movie = await createMovie(req.body);
 
     res.status(201).json({

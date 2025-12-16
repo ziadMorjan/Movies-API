@@ -21,6 +21,10 @@ export const getSeasonsController = asyncErrorHandler(async (req, res) => {
 
 /* CREATE */
 export const createSeasonController = asyncErrorHandler(async (req, res) => {
+    if (req.file) {
+        req.body.poster = req.file.path;
+    }
+
     const season = await createSeason(req.params.seriesId, req.body);
 
     res.status(201).json({

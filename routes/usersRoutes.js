@@ -1,5 +1,8 @@
 import express from "express";
 import { protect, allowTo } from "../middlewares/authMiddleware.js";
+
+import { uploadImage } from "../middlewares/uploadMiddleware.js";
+
 import {
     getUsersController,
     createUserController,
@@ -24,7 +27,7 @@ const router = express.Router();
 
 router.use(protect);
 
-router.patch("/update-me", updateMeValidator, validatorMiddleware, updateMeController);
+router.patch("/update-me", uploadImage.single("photo"), updateMeValidator, validatorMiddleware, updateMeController);
 router.patch("/change-password", ensureLocalAuth, changePasswordValidator, validatorMiddleware, changePasswordController);
 
 router.use(allowTo("admin"));

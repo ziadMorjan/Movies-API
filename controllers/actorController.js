@@ -9,6 +9,9 @@ import {
 } from "../services/actorService.js";
 
 export const createActorController = asyncErrorHandler(async (req, res) => {
+    if (req.file) {
+        req.body.profilePath = req.file.path;
+    }
     const actor = await createActor(req.body);
 
     res.status(201).json({

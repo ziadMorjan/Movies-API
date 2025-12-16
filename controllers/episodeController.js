@@ -46,6 +46,10 @@ export const getEpisodeController = asyncErrorHandler(async (req, res) => {
 
 /* ================= CREATE ================= */
 export const createEpisodeController = asyncErrorHandler(async (req, res) => {
+    if (req.file) {
+        req.body.videoUrl = req.file.path;
+    }
+
     const episode = await createEpisode({
         ...req.body,
         series: req.params.seriesId,

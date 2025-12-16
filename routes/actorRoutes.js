@@ -12,13 +12,14 @@ import {
     actorIdValidator,
 } from "../utils/validators/actorValidator.js";
 import { allowTo, protect } from "../middlewares/authMiddleware.js";
+import { uploadImage } from "../middlewares/uploadMiddleware.js";
 
 const router = express.Router();
 
 router
     .route("/")
     .get(getActorsController)
-    .post(protect, allowTo("admin"), createActorValidator, createActorController);
+    .post(protect, allowTo("admin"), uploadImage.single("profilePath"), createActorValidator, createActorController);
 
 router
     .route("/:id")

@@ -14,6 +14,7 @@ import {
     movieIdValidator,
 } from "../utils/validators/moviesValidator.js";
 import { optionalProtect } from "../middlewares/optionalProtect .js";
+import { uploadImage, uploadVideo } from "../middlewares/uploadMiddleware.js";
 
 const router = express.Router();
 
@@ -24,6 +25,11 @@ router
     .post(
         protect,
         allowTo("admin"),
+        uploadImage.fields([
+            { name: "poster", maxCount: 1 },
+            { name: "backdrop", maxCount: 1 },
+        ]),
+        uploadVideo.single("video"),
         createMovieValidator,
         createMovieController
     );

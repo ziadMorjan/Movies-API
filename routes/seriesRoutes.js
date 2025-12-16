@@ -15,6 +15,7 @@ import {
     seriesIdValidator,
 } from "../utils/validators/seriesValidator.js";
 import seasonRoutes from "./seasonRoutes.js";
+import { uploadImage } from "../middlewares/uploadMiddleware.js";
 
 
 const router = express.Router();
@@ -27,6 +28,10 @@ router
     .post(
         protect,
         allowTo("admin"),
+        uploadImage.fields([
+            { name: "poster", maxCount: 1 },
+            { name: "backdrop", maxCount: 1 },
+        ]),
         createSeriesValidator,
         createSeriesController
     );

@@ -21,6 +21,11 @@ export const getSeriesController = asyncErrorHandler(async (req, res) => {
 
 /* CREATE */
 export const createSeriesController = asyncErrorHandler(async (req, res) => {
+    if (req.files?.poster)
+        req.body.poster = req.files.poster[0].path;
+    if (req.files?.backdrop)
+        req.body.backdrop = req.files.backdrop[0].path;
+
     const series = await createSeries(req.body);
 
     res.status(201).json({
