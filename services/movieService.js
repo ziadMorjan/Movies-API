@@ -6,10 +6,26 @@ import CustomError from "../utils/CustomError.js";
 // services/movieService.js
 export const getMovies = async (queryString) => {
     const filter = { isDeleted: false };
+    if (queryString._id) {
+        filter._id = {
+            $in: queryString._id.split(","),
+        };
+    }
+
+    if (queryString.genre) {
+        filter.genresRefs = { $in: queryString.genre.split(",") };
+    }
+
+    if (queryString.actor) {
+        filter.castRefs = { $in: queryString.actor.split(",") };
+    }
 
     const totalDocs = await Movie.countDocuments(filter);
 
-    const apiFeatures = new ApiFeatures(Movie.find(filter), queryString)
+    const apiFeatures = new ApiFeatures(
+        Movie.find(filter),
+        queryString
+    )
         .filter()
         .search(["name"])
         .sort()

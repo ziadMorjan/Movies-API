@@ -9,10 +9,24 @@ export const createSeries = async (data) => {
 
 /* GET ALL */
 export const getAllSeries = async (queryString) => {
-    const totalDocs = await Series.countDocuments({ isDeleted: false });
+    const filter = { isDeleted: false };
+    if (queryString._id) {
+        filter._id = {
+            $in: queryString._id.split(","),
+        };
+    }
+
+    if (queryString.genre) {
+        filter.genresRefs = { $in: queryString.genre.split(",") };
+    }
+
+    if (queryString.actor) {
+        filter.castRefs = { $in: queryString.actor.split(",") };
+    }
+    const totalDocs = await Series.countDocuments(filter);
 
     const apiFeatures = new ApiFeatures(
-        Series.find({ isDeleted: false }),
+        Series.find(filter),
         queryString
     )
         .filter()
