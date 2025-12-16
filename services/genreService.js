@@ -8,7 +8,11 @@ export const createGenre = async (data) => {
 };
 
 export const getAllGenres = async (queryString) => {
-    const totalDocs = await Genre.countDocuments();
+    const totalDocs = await (new ApiFeatures(Genre.find(), queryString)
+        .filter()
+        .search(["name"])
+        .query
+        .countDocuments());
 
     const apiFeatures = new ApiFeatures(Genre.find(), queryString)
         .filter()

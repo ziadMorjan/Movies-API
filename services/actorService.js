@@ -8,7 +8,11 @@ export const createActor = async (data) => {
 };
 
 export const getAllActors = async (queryString) => {
-    const totalDocs = await Actor.countDocuments();
+    const totalDocs = await (new ApiFeatures(Actor.find(), queryString)
+        .filter()
+        .search(["name"])
+        .query
+        .countDocuments());
 
     const apiFeatures = new ApiFeatures(Actor.find(), queryString)
         .filter()

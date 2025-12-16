@@ -23,7 +23,11 @@ export const getAllSeries = async (queryString) => {
     if (queryString.actor) {
         filter.castRefs = { $in: queryString.actor.split(",") };
     }
-    const totalDocs = await Series.countDocuments(filter);
+    const totalDocs = await (new ApiFeatures(Series.find(filter), queryString)
+        .filter()
+        .search(["name"])
+        .query
+        .countDocuments());
 
     const apiFeatures = new ApiFeatures(
         Series.find(filter),

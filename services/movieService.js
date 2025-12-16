@@ -20,7 +20,11 @@ export const getMovies = async (queryString) => {
         filter.castRefs = { $in: queryString.actor.split(",") };
     }
 
-    const totalDocs = await Movie.countDocuments(filter);
+    const totalDocs = await (new ApiFeatures(Movie.find(filter), queryString)
+        .filter()
+        .search(["name"])
+        .query
+        .countDocuments());
 
     const apiFeatures = new ApiFeatures(
         Movie.find(filter),

@@ -5,7 +5,11 @@ import CustomError from "../utils/CustomError.js";
 export const getEpisodes = async (seasonId, queryString) => {
     const filter = { season: seasonId, isDeleted: false };
 
-    const totalDocs = await Episode.countDocuments(filter);
+    const totalDocs = await (new ApiFeatures(Episode.find(filter), queryString)
+        .filter()
+        .search(["name"])
+        .query
+        .countDocuments());
 
     const apiFeatures = new ApiFeatures(Episode.find(filter), queryString)
         .filter()
