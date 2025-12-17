@@ -13,7 +13,7 @@ export const createSeason = async (seriesId, data) => {
 
 /* GET ALL (by series) */
 export const getSeasonsBySeries = async (seriesId, queryString) => {
-    const totalDocs = await (new ApiFeatures(Movie.find({
+    const totalDocs = await (new ApiFeatures(Season.find({
         series: seriesId,
         isDeleted: false,
     }), queryString)

@@ -18,7 +18,7 @@ export const uploadImage = multer({
     limits: { fileSize: 2 * 1024 * 1024 }, // 2MB
     fileFilter: (req, file, cb) => {
         if (!file.mimetype.startsWith("image"))
-            cb(new CustomError("Images only allowed", 400), false);
+            return cb(new CustomError("Images only allowed", 400), false);
         cb(null, true);
     },
 });
@@ -37,7 +37,7 @@ export const uploadVideo = multer({
     limits: { fileSize: 100 * 1024 * 1024 }, // 100MB
     fileFilter: (req, file, cb) => {
         if (!file.mimetype.startsWith("video"))
-            cb(new CustomError("Videos only allowed", 400), false);
+            return cb(new CustomError("Videos only allowed", 400), false);
         cb(null, true);
     },
 });

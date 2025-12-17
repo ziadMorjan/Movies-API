@@ -30,7 +30,10 @@ export const verifyFacebookToken = async (accessToken) => {
             photo: data.picture?.data?.url,
         };
     } catch (err) {
-        throw new CustomError("Invalid or expired Facebook token", 401);
+        if (err.response) {
+            throw new CustomError("Invalid or expired Facebook token", 401);
+        }
+        throw err;
     }
 };
 
