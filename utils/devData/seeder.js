@@ -228,6 +228,8 @@ async function importData() {
                 castRefs: (m.cast || []).map((a) =>
                     ensure(actorMap[a], `Unknown actor "${a}" for movie "${m.name}"`)
                 ),
+                rating: m.rating && m.rating >= 0 && m.rating <= 10 ? m.rating : Math.floor(Math.random() * 11),
+                views: m.views && m.views >= 0 ? m.views : Math.floor(Math.random() * 10000),
             });
         });
         await Movie.create(moviePayload);

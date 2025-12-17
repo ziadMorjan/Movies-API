@@ -45,7 +45,15 @@ const movieSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-
+        rating: {
+            type: Number,
+            min: 0,
+            max: 10
+        },
+        views: {
+            type: Number,
+            min: 0
+        },
         isDeleted: {
             type: Boolean,
             default: false,
