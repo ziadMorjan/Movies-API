@@ -43,14 +43,20 @@ export const loginController = asyncErrorHandler(async (req, res) => {
 });
 
 export const logoutController = asyncErrorHandler(async (req, res) => {
-    res
-        .cookie("token", "", { maxAge: 1 })
-        .status(200)
-        .json({
-            status: "success",
-            message: "Logged out successfully",
-        });
+  res
+    .cookie("token", "", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV !== "production" ? "Lax" : "None",
+      expires: new Date(0),
+    })
+    .status(200)
+    .json({
+      status: "success",
+      message: "Logged out successfully",
+    });
 });
+
 
 export const forgotPasswordController = asyncErrorHandler(async (req, res) => {
     const { email } = req.body;
