@@ -2,6 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import statsRoutes from "./routes/statsRoutes.js";
 
 import movieRoutes from "./routes/moviesRoutes.js";
 import actorRoutes from "./routes/actorRoutes.js";
@@ -58,6 +59,7 @@ app.use("/api/v1/seasons", seasonRoutes);
 app.use("/api/v1/episodes", episodeRoutes);
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/stats", statsRoutes);
 
 // ----------------------
 // Handle Unknown Routes
