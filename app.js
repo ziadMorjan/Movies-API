@@ -12,6 +12,7 @@ import seasonRoutes from "./routes/seasonRoutes.js";
 import episodeRoutes from "./routes/episodeRoutes.js";
 import authRoutes from "./routes/authRouts.js";
 import userRoutes from "./routes/usersRoutes.js";
+import notificationRoutes from "./routes/notificationRoutes.js";
 
 import CustomError from "./utils/CustomError.js";
 import { globalErrorHandler } from "./middlewares/errorMiddleware.js";
@@ -60,6 +61,7 @@ app.use("/api/v1/episodes", episodeRoutes);
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/stats", statsRoutes);
+app.use("/api/v1/notifications", notificationRoutes);
 
 // ----------------------
 // Handle Unknown Routes
