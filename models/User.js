@@ -34,6 +34,7 @@ const userSchema = new mongoose.Schema(
         resetToken: String,
         resetTokenExpired: Date,
         passwordChangedAt: Date,
+        lastReadNotifications: { type: Date, default: Date.now },
         favorites: [
             {
                 item: {
