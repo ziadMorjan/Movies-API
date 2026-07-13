@@ -37,7 +37,7 @@ export const deleteUser = async (id) => {
 
 // User self-update (profile)
 export const updateMe = async (userId, body) => {
-    const allowedFields = ["firstName", "lastName", "email", "photo"];
+    const allowedFields = ["firstName", "lastName", "email", "photo", "favorites"];
 
     const filtered = {};
     Object.keys(body).forEach((key) => {
