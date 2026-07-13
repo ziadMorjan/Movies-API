@@ -45,6 +45,8 @@ export const getMovieController = asyncErrorHandler(async (req, res) => {
 });
 
 
+import Notification from "../models/Notification.js";
+
 /* ================= CREATE ================= */
 export const createMovieController = asyncErrorHandler(async (req, res) => {
     if (req.files?.poster)
@@ -57,6 +59,14 @@ export const createMovieController = asyncErrorHandler(async (req, res) => {
         req.body.videoUrl = req.file.path;
 
     const movie = await createMovie(req.body);
+
+    // Trigger Notification for all users
+    await Notification.create({
+        title: "New Movie Released",
+        message: `Watch the newly added movie: ${movie.name}`,
+        type: "movie",
+        refId: movie._id,
+    });
 
     res.status(201).json({
         status: "success",
@@ -77,5 +87,6 @@ export const updateMovieController = asyncErrorHandler(async (req, res) => {
 /* ================= DELETE ================= */
 export const deleteMovieController = asyncErrorHandler(async (req, res) => {
     await deleteMovie(req.params.id);
+    await Notification.deleteMany({ refId: req.params.id });
     res.status(204).send();
 });

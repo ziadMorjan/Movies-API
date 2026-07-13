@@ -19,6 +19,8 @@ export const getSeriesController = asyncErrorHandler(async (req, res) => {
     });
 });
 
+import Notification from "../models/Notification.js";
+
 /* CREATE */
 export const createSeriesController = asyncErrorHandler(async (req, res) => {
     if (req.files?.poster)
@@ -27,6 +29,14 @@ export const createSeriesController = asyncErrorHandler(async (req, res) => {
         req.body.backdrop = req.files.backdrop[0].path;
 
     const series = await createSeries(req.body);
+
+    // Trigger Notification for all users
+    await Notification.create({
+        title: "New Series Released",
+        message: `Watch the newly added series: ${series.name}`,
+        type: "series",
+        refId: series._id,
+    });
 
     res.status(201).json({
         status: "success",
@@ -57,5 +67,6 @@ export const updateSeriesController = asyncErrorHandler(async (req, res) => {
 /* DELETE */
 export const deleteSeriesController = asyncErrorHandler(async (req, res) => {
     await deleteSeries(req.params.id);
+    await Notification.deleteMany({ refId: req.params.id });
     res.status(204).send();
 });
