@@ -8,20 +8,22 @@ function asyncErrorHandler(asyncFunc) {
 }
 
 function globalErrorHandler(error, req, res, next) {
+    if (error.name == "CastError") error = CastErrorHandler(error);
+    if (error.code == 11000) error = DuplicateKeyHandler(error);
+    if (error.name == "ValidationError") error = ValidationErrorHandler(error);
+    if (error.name == "JsonWebTokenError") error = JsonWebTokenErrorHandler();
+    if (error.name == "TokenExpiredError") error = TokenExpiredErrorHandler();
+
     error.statusCode = error.statusCode || 500;
     error.status = error.status || "error";
+
     if (process.env.NODE_ENV == "development")
         devError(error, res);
     else if (process.env.NODE_ENV == "production") {
-        if (error.name == "CastError") error = CastErrorHandler(error);
-        if (error.code == 11000) error = DuplicateKeyHandler(error);
-        if (error.name == "ValidationError") error = ValidationErrorHandler(error);
-        if (error.name == "JsonWebTokenError") error = JsonWebTokenErrorHandler();
-        if (error.name == "TokenExpiredError") error = TokenExpiredErrorHandler();
-
         prodError(error, res);
     }
 }
+
 
 function devError(error, res) {
     res.status(error.statusCode).json({

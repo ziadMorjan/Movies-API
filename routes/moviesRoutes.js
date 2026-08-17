@@ -6,6 +6,7 @@ import {
     createMovieController,
     updateMovieController,
     deleteMovieController,
+    aiChatMoviesController,
 } from "../controllers/moviesController.js";
 
 import {
@@ -33,6 +34,9 @@ router
         createMovieValidator,
         createMovieController
     );
+
+// 🤖 AI Chat — must be before /:id to avoid clash
+router.post("/ai-chat", optionalProtect, aiChatMoviesController);
 
 router
     .route("/:id")
