@@ -1,31 +1,33 @@
 import dotenv from "dotenv";
-import { connect } from "./config/db.js";
+dotenv.config({ path: "./config.env" });
 
-// Uncaught Exception HAndler
+import { connect } from "./config/db.js";
+import { errorLogger } from "./utils/logger.js";
+
+// Uncaught Exception Handler
 process.on("uncaughtException", (error) => {
+    console.error("❌ Uncaught Exception occurred! shutting down...", error);
     errorLogger(error);
-    console.log("Uncaught Exception occurred! shutting down...");
     process.exit(1);
 });
 
 import app from "./app.js";
-import { errorLogger } from "./utils/logger.js";
-dotenv.config({ path: "./config.env" });
 
 // start the server
 const port = process.env.PORT || 8000;
 
 const server = app.listen(port, () => {
-    console.log(`Server started in => ${process.env.NODE_ENV} mode.`);
+    console.log(`🚀 Server started on port ${port} in => ${process.env.NODE_ENV || 'production'} mode.`);
 });
 
 // connect to db
-connect(process.env.CON_STR);
+const dbUri = process.env.CON_STR || process.env.MONGODB_URI || process.env.MONGO_URI || process.env.DATABASE_URL;
+connect(dbUri);
 
-// Unhandled Rejection HAndler
+// Unhandled Rejection Handler
 process.on("unhandledRejection", (error) => {
+    console.error("❌ Unhandled Rejection occurred! shutting down...", error);
     errorLogger(error);
-    console.log("Unhandled Rejection occurred! shutting down...");
     server.close(() => {
         process.exit(1);
     });
